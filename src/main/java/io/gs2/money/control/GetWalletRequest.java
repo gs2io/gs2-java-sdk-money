@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2UserRequest;
 
@@ -30,10 +32,10 @@ public class GetWalletRequest extends Gs2UserRequest<GetWalletRequest> {
 	}
 
 	/** 仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** ウォレットのスロット番号 */
-	Integer slot;
+	private Integer slot;
 
 
 	/**

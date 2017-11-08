@@ -16,12 +16,10 @@
 
 package io.gs2.money.control;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import org.json.JSONObject;
 import java.util.List;
-
-import io.gs2.money.model.Receipt;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.gs2.money.model.*;
 
 /**
  * @author Game Server Services, Inc.
@@ -30,10 +28,10 @@ import io.gs2.money.model.Receipt;
 public class DescribeReceiptResult {
 
 	/** 次のページを読み込むためのトークン */
-	String nextPageToken;
+	private String nextPageToken;
 
 	/** レシート */
-	List<Receipt> items;
+	private List<Receipt> items;
 
 
 	/**

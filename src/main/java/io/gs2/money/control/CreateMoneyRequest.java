@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2BasicRequest;
 
@@ -30,30 +32,28 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	}
 
 	/** ストアプラットフォームのレシートの検証機能を利用するか */
-	Boolean useVerifyReceipt;
+	private Boolean useVerifyReceipt;
 
 	/** 仮想通貨名 */
-	String name;
+	private String name;
 
 	/** Google のレシート検証用公開鍵 */
-	String googleKey;
+	private String googleKey;
 
-	/** 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費します */
-	String priority;
+	/** 支払い優先度 */
+	private String priority;
 
 	/** 通貨 */
-	String currency;
+	private String currency;
 
 	/** 無償仮想通貨を異なるスロットで共有するか */
-	Boolean shareFree;
+	private Boolean shareFree;
 
 	/** Apple のアプリケーションバンドルID */
-	String appleKey;
+	private String appleKey;
 
 	/** 説明文(1024文字以内) */
-	String description;
+	private String description;
 
 
 	/**
@@ -144,39 +144,27 @@ paid を指定することで有償仮想通貨を優先的に消費します */
 	}
 
 	/**
-	 * 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費しますを取得
+	 * 支払い優先度を取得
 	 *
 	 * @return 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費します
 	 */
 	public String getPriority() {
 		return priority;
 	}
 
 	/**
-	 * 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費しますを設定
+	 * 支払い優先度を設定
 	 *
 	 * @param priority 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費します
 	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 
 	/**
-	 * 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費しますを設定
+	 * 支払い優先度を設定
 	 *
 	 * @param priority 支払い優先度
-free を指定することで無償仮想通貨を優先的に
-paid を指定することで有償仮想通貨を優先的に消費します
 	 * @return this
 	 */
 	public CreateMoneyRequest withPriority(String priority) {

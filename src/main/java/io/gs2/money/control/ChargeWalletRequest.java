@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2UserRequest;
 
@@ -30,20 +32,19 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	}
 
 	/** 取得する仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** 取得するウォレットのスロット番号 */
-	Integer slot;
+	private Integer slot;
 
 	/** 仮想通貨付与量 */
-	Integer count;
+	private Integer count;
 
 	/** 支払金額 */
-	Double price;
+	private Double price;
 
-	/** トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされます */
-	String transactionId;
+	/** トランザクションID */
+	private String transactionId;
 
 
 	/**
@@ -163,33 +164,27 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	}
 
 	/**
-	 * トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされますを取得
+	 * トランザクションIDを取得
 	 *
 	 * @return トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされます
 	 */
 	public String getTransactionId() {
 		return transactionId;
 	}
 
 	/**
-	 * トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされますを設定
+	 * トランザクションIDを設定
 	 *
 	 * @param transactionId トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされます
 	 */
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
 
 	/**
-	 * トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされますを設定
+	 * トランザクションIDを設定
 	 *
 	 * @param transactionId トランザクションID
-トランザクションIDが重複しているリクエストが届いた場合はリジェクトされます
 	 * @return this
 	 */
 	public ChargeWalletRequest withTransactionId(String transactionId) {

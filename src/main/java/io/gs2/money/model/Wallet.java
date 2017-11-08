@@ -16,6 +16,7 @@
 
 package io.gs2.money.model;
 
+import java.util.List;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,10 +31,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Wallet implements Serializable {
 
 	/** 所持数 */
-	Integer count;
+	private Integer count;
 
 	/** 単価 */
-	Double price;
+	private Double price;
 
 
 	/**

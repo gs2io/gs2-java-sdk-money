@@ -16,6 +16,7 @@
 
 package io.gs2.money.model;
 
+import java.util.List;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,28 +31,28 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class PlatformedItem implements Serializable {
 
 	/** 商品ID */
-	String itemId;
+	private String itemId;
 
 	/** 仮想通貨ID */
-	String moneyId;
+	private String moneyId;
 
 	/** アプリ内課金ID */
-	String name;
+	private String name;
 
 	/** プラットフォーム個別商品ID */
-	String platformedItemId;
+	private String platformedItemId;
 
 	/** 販売価格 */
-	Double price;
+	private Double price;
 
 	/** 販売プラットフォーム */
-	String platform;
+	private String platform;
 
 	/** 作成日時(エポック秒) */
-	Integer createAt;
+	private Integer createAt;
 
 	/** 最終更新日時(エポック秒) */
-	Integer updateAt;
+	private Integer updateAt;
 
 
 	/**

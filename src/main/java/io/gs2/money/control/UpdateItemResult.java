@@ -16,10 +16,10 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import io.gs2.money.model.Item;
-
+import io.gs2.money.model.*;
 
 /**
  * @author Game Server Services, Inc.
@@ -28,7 +28,7 @@ import io.gs2.money.model.Item;
 public class UpdateItemResult {
 
 	/** 商品 */
-	Item item;
+	private Item item;
 
 
 	/**

@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2BasicRequest;
 
@@ -30,13 +32,13 @@ public class UpdateItemRequest extends Gs2BasicRequest<UpdateItemRequest> {
 	}
 
 	/** 仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** 商品の名前 */
-	String itemName;
+	private String itemName;
 
 	/** 付与する商品の数 */
-	Integer count;
+	private Integer count;
 
 
 	/**

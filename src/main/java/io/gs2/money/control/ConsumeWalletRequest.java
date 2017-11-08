@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2UserRequest;
 
@@ -30,28 +32,19 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	}
 
 	/** 取得する仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** 取得するウォレットのスロット番号 */
-	Integer slot;
+	private Integer slot;
 
 	/** 仮想通貨消費量 */
-	Integer count;
+	private Integer count;
 
-	/** 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
+	/** 有償仮想通貨のみ消費対象としたい場合に true を指定します */
+	private Boolean paidOnly;
 
-省略した場合は false が適用されます */
-	Boolean paidOnly;
-
-	/** 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できます */
-	Integer use;
+	/** 用途ID */
+	private Integer use;
 
 
 	/**
@@ -142,45 +135,27 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	}
 
 	/**
-	 * 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
-
-省略した場合は false が適用されますを取得
+	 * 有償仮想通貨のみ消費対象としたい場合に true を指定しますを取得
 	 *
 	 * @return 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
-
-省略した場合は false が適用されます
 	 */
 	public Boolean getPaidOnly() {
 		return paidOnly;
 	}
 
 	/**
-	 * 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
-
-省略した場合は false が適用されますを設定
+	 * 有償仮想通貨のみ消費対象としたい場合に true を指定しますを設定
 	 *
 	 * @param paidOnly 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
-
-省略した場合は false が適用されます
 	 */
 	public void setPaidOnly(Boolean paidOnly) {
 		this.paidOnly = paidOnly;
 	}
 
 	/**
-	 * 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
-
-省略した場合は false が適用されますを設定
+	 * 有償仮想通貨のみ消費対象としたい場合に true を指定しますを設定
 	 *
 	 * @param paidOnly 有償仮想通貨のみ消費対象としたい場合に true を指定します
-無償仮想通貨では受けられないサービスの決済時に使用します
-
-省略した場合は false が適用されます
 	 * @return this
 	 */
 	public ConsumeWalletRequest withPaidOnly(Boolean paidOnly) {
@@ -189,63 +164,27 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	}
 
 	/**
-	 * 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できますを取得
+	 * 用途IDを取得
 	 *
 	 * @return 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できます
 	 */
 	public Integer getUse() {
 		return use;
 	}
 
 	/**
-	 * 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できますを設定
+	 * 用途IDを設定
 	 *
 	 * @param use 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できます
 	 */
 	public void setUse(Integer use) {
 		this.use = use;
 	}
 
 	/**
-	 * 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できますを設定
+	 * 用途IDを設定
 	 *
 	 * @param use 用途ID
-
-- リトライ: 0
-- ボックス拡張: 1
-- ガチャ: 2
-
-のように用途ごとに異なるIDを付与しておくことで、仮想通貨の用途ごとの消費統計を計算できます
 	 * @return this
 	 */
 	public ConsumeWalletRequest withUse(Integer use) {

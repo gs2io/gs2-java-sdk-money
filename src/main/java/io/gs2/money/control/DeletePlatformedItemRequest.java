@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2BasicRequest;
 
@@ -30,13 +32,13 @@ public class DeletePlatformedItemRequest extends Gs2BasicRequest<DeletePlatforme
 	}
 
 	/** 仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** 商品の名前 */
-	String itemName;
+	private String itemName;
 
 	/** プラットフォームの名前 */
-	String platform;
+	private String platform;
 
 
 	/**

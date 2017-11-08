@@ -16,6 +16,7 @@
 
 package io.gs2.money.model;
 
+import java.util.List;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,22 +31,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Summary implements Serializable {
 
 	/** スロット番号 */
-	Integer slot;
+	private Integer slot;
 
 	/** 作成日時(エポック秒) */
-	Integer createAt;
+	private Integer createAt;
 
 	/** 有償仮想通貨所持量 */
-	Integer paid;
+	private Integer paid;
 
 	/** 最終更新日時(エポック秒) */
-	Integer updateAt;
+	private Integer updateAt;
 
 	/** ユーザID */
-	String userId;
+	private String userId;
 
 	/** 無償仮想通貨所持量 */
-	Integer free;
+	private Integer free;
 
 
 	/**

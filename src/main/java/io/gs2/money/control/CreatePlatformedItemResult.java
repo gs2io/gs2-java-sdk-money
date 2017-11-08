@@ -16,10 +16,10 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import io.gs2.money.model.PlatformedItem;
-
+import io.gs2.money.model.*;
 
 /**
  * @author Game Server Services, Inc.
@@ -28,7 +28,7 @@ import io.gs2.money.model.PlatformedItem;
 public class CreatePlatformedItemResult {
 
 	/** プラットフォーム個別商品 */
-	PlatformedItem item;
+	private PlatformedItem item;
 
 
 	/**

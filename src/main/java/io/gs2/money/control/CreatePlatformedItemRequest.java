@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2BasicRequest;
 
@@ -30,19 +32,19 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	}
 
 	/** 仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** 商品の名前 */
-	String itemName;
+	private String itemName;
 
 	/** 販売プラットフォーム */
-	String platform;
+	private String platform;
 
 	/** 販売価格 */
-	Double price;
+	private Double price;
 
 	/** アプリ内課金ID */
-	String name;
+	private String name;
 
 
 	/**

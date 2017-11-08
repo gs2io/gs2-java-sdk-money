@@ -16,12 +16,10 @@
 
 package io.gs2.money.control;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import org.json.JSONObject;
 import java.util.List;
-
-import io.gs2.money.model.Wallet;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.gs2.money.model.*;
 
 /**
  * @author Game Server Services, Inc.
@@ -30,7 +28,7 @@ import io.gs2.money.model.Wallet;
 public class GetWalletDetailResult {
 
 	/** ウォレットの詳細 */
-	List<Wallet> items;
+	private List<Wallet> items;
 
 
 	/**

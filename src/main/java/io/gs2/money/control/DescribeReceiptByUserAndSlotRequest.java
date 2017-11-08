@@ -16,6 +16,8 @@
 
 package io.gs2.money.control;
 
+import org.json.JSONObject;
+import java.util.List;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2BasicRequest;
 
@@ -30,33 +32,25 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	}
 
 	/** 仮想通貨の名前 */
-	String moneyName;
+	private String moneyName;
 
 	/** ユーザID */
-	String userId;
+	private String userId;
 
 	/** スロット番号 */
-	Integer slot;
+	private Integer slot;
 
-	/** データの取得開始日時(エポック秒)
+	/** データの取得開始日時(エポック秒) */
+	private Integer begin;
 
-省略すると30日前が指定されます */
-	Integer begin;
+	/** データの取得終了日時(エポック秒) */
+	private Integer end;
 
-	/** データの取得終了日時(エポック秒)
+	/** データの取得を開始する位置を指定するトークン */
+	private String pageToken;
 
-省略すると現在時刻が指定されます */
-	Integer end;
-
-	/** データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得します */
-	String pageToken;
-
-	/** データの取得件数
-
-省略すると30件取得します */
-	Integer limit;
+	/** データの取得件数 */
+	private Integer limit;
 
 
 	/**
@@ -147,39 +141,27 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	}
 
 	/**
-	 * データの取得開始日時(エポック秒)
-
-省略すると30日前が指定されますを取得
+	 * データの取得開始日時(エポック秒)を取得
 	 *
 	 * @return データの取得開始日時(エポック秒)
-
-省略すると30日前が指定されます
 	 */
 	public Integer getBegin() {
 		return begin;
 	}
 
 	/**
-	 * データの取得開始日時(エポック秒)
-
-省略すると30日前が指定されますを設定
+	 * データの取得開始日時(エポック秒)を設定
 	 *
 	 * @param begin データの取得開始日時(エポック秒)
-
-省略すると30日前が指定されます
 	 */
 	public void setBegin(Integer begin) {
 		this.begin = begin;
 	}
 
 	/**
-	 * データの取得開始日時(エポック秒)
-
-省略すると30日前が指定されますを設定
+	 * データの取得開始日時(エポック秒)を設定
 	 *
 	 * @param begin データの取得開始日時(エポック秒)
-
-省略すると30日前が指定されます
 	 * @return this
 	 */
 	public DescribeReceiptByUserAndSlotRequest withBegin(Integer begin) {
@@ -188,39 +170,27 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	}
 
 	/**
-	 * データの取得終了日時(エポック秒)
-
-省略すると現在時刻が指定されますを取得
+	 * データの取得終了日時(エポック秒)を取得
 	 *
 	 * @return データの取得終了日時(エポック秒)
-
-省略すると現在時刻が指定されます
 	 */
 	public Integer getEnd() {
 		return end;
 	}
 
 	/**
-	 * データの取得終了日時(エポック秒)
-
-省略すると現在時刻が指定されますを設定
+	 * データの取得終了日時(エポック秒)を設定
 	 *
 	 * @param end データの取得終了日時(エポック秒)
-
-省略すると現在時刻が指定されます
 	 */
 	public void setEnd(Integer end) {
 		this.end = end;
 	}
 
 	/**
-	 * データの取得終了日時(エポック秒)
-
-省略すると現在時刻が指定されますを設定
+	 * データの取得終了日時(エポック秒)を設定
 	 *
 	 * @param end データの取得終了日時(エポック秒)
-
-省略すると現在時刻が指定されます
 	 * @return this
 	 */
 	public DescribeReceiptByUserAndSlotRequest withEnd(Integer end) {
@@ -229,39 +199,27 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	}
 
 	/**
-	 * データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得しますを取得
+	 * データの取得を開始する位置を指定するトークンを取得
 	 *
 	 * @return データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得します
 	 */
 	public String getPageToken() {
 		return pageToken;
 	}
 
 	/**
-	 * データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得しますを設定
+	 * データの取得を開始する位置を指定するトークンを設定
 	 *
 	 * @param pageToken データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得します
 	 */
 	public void setPageToken(String pageToken) {
 		this.pageToken = pageToken;
 	}
 
 	/**
-	 * データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得しますを設定
+	 * データの取得を開始する位置を指定するトークンを設定
 	 *
 	 * @param pageToken データの取得を開始する位置を指定するトークン
-
-省略すると先頭から取得します
 	 * @return this
 	 */
 	public DescribeReceiptByUserAndSlotRequest withPageToken(String pageToken) {
@@ -270,39 +228,27 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	}
 
 	/**
-	 * データの取得件数
-
-省略すると30件取得しますを取得
+	 * データの取得件数を取得
 	 *
 	 * @return データの取得件数
-
-省略すると30件取得します
 	 */
 	public Integer getLimit() {
 		return limit;
 	}
 
 	/**
-	 * データの取得件数
-
-省略すると30件取得しますを設定
+	 * データの取得件数を設定
 	 *
 	 * @param limit データの取得件数
-
-省略すると30件取得します
 	 */
 	public void setLimit(Integer limit) {
 		this.limit = limit;
 	}
 
 	/**
-	 * データの取得件数
-
-省略すると30件取得しますを設定
+	 * データの取得件数を設定
 	 *
 	 * @param limit データの取得件数
-
-省略すると30件取得します
 	 * @return this
 	 */
 	public DescribeReceiptByUserAndSlotRequest withLimit(Integer limit) {

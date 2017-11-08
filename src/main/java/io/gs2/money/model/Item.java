@@ -16,6 +16,7 @@
 
 package io.gs2.money.model;
 
+import java.util.List;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,22 +31,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Item implements Serializable {
 
 	/** 商品ID */
-	String itemId;
+	private String itemId;
 
 	/** 付与する仮想通貨の数 */
-	Integer count;
+	private Integer count;
 
 	/** 作成日時(エポック秒) */
-	Integer createAt;
+	private Integer createAt;
 
 	/** 仮想通貨ID */
-	String moneyId;
+	private String moneyId;
 
 	/** 商品名 */
-	String name;
+	private String name;
 
 	/** 最終更新日時(エポック秒) */
-	Integer updateAt;
+	private Integer updateAt;
 
 
 	/**

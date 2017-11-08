@@ -16,6 +16,7 @@
 
 package io.gs2.money.model;
 
+import java.util.List;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,43 +31,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Money implements Serializable {
 
 	/** ストアプラットフォームのレシートの検証機能を利用するか */
-	Boolean useVerifyReceipt;
+	private Boolean useVerifyReceipt;
 
 	/** 仮想通貨ID */
-	String moneyId;
+	private String moneyId;
 
 	/** 仮想通貨名 */
-	String name;
+	private String name;
 
 	/** Google のレシート検証用公開鍵 */
-	String googleKey;
+	private String googleKey;
 
 	/** 支払い優先度 */
-	String priority;
+	private String priority;
 
 	/** 通貨 */
-	String currency;
+	private String currency;
 
 	/** 無償仮想通貨を異なるスロットで共有するか */
-	Boolean shareFree;
+	private Boolean shareFree;
 
 	/** 作成日時(エポック秒) */
-	Integer createAt;
+	private Integer createAt;
 
 	/** オーナーID */
-	String ownerId;
+	private String ownerId;
 
 	/** 未使用残高 */
-	Double balance;
+	private Double balance;
 
 	/** 最終更新日時(エポック秒) */
-	Integer updateAt;
+	private Integer updateAt;
 
 	/** Apple のアプリケーションバンドルID */
-	String appleKey;
+	private String appleKey;
 
 	/** 説明文 */
-	String description;
+	private String description;
 
 
 	/**

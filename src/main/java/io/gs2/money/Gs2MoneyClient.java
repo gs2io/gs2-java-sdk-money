@@ -19,6 +19,7 @@ package io.gs2.money;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.gs2.util.EncodingUtil;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -56,120 +57,36 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 
 	/**
-	 * ウォレットを取得します<br>
+	 * ウォレットに仮想通貨をチャージします<br>
 	 * <br>
-	 * ここでは有償仮想通貨と無償仮想通貨の数が取得できます。<br>
-	 * 有償仮想通貨は単価ごとに所持数量が別途管理されています。<br>
-	 * 詳細な構成を取得したい場合は Gs2Money:GetWalletDetail を使ってください。<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public GetWalletResult getWallet(GetWalletRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/wallet/" + request.getSlot() + "";
-
-
-
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				GetWalletRequest.Constant.MODULE,
-				GetWalletRequest.Constant.FUNCTION);
-
-        get.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
-		return doRequest(get, GetWalletResult.class);
-	}
-
-
-	/**
-	 * レシートを検証する<br>
-	 * <br>
-	 * 下記フォーマットのレシートをPOSTすることでレシートを検証し、仮想通貨のチャージまでアトミックに実行できます。<br>
-	 * {<br>
-	 *   'Store': ストア名,<br>
-	 *   'Payload': レシート本体<br>
-	 * }<br>
-	 * <br>
-	 * 現在ストア名には<br>
-	 * - AppleAppStore<br>
-	 * - GooglePlay<br>
-	 * が指定できます。<br>
+	 * trasactionId にトランザクションIDを指定することで、<br>
+	 * 1回の課金処理で複数回仮想通貨をチャージすることを防ぐことが出来ます。<br>
+	 * 重複したリクエストが発生した場合は 409エラー(ConflictException) が発生しますが、正常処理とするべきです。<br>
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
-	public VerifyResult verify(VerifyRequest request) {
+
+	public ChargeWalletResult chargeWallet(ChargeWalletRequest request) {
+
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("slot", request.getSlot())
-				.put("receipt", request.getReceipt());
+				.put("count", request.getCount())
+				.put("price", request.getPrice());
 
+        if(request.getTransactionId() != null) body.put("transactionId", request.getTransactionId());
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/verify",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/charge",
 				credential,
 				ENDPOINT,
-				VerifyRequest.Constant.MODULE,
-				VerifyRequest.Constant.FUNCTION,
+				ChargeWalletRequest.Constant.MODULE,
+				ChargeWalletRequest.Constant.FUNCTION,
 				body.toString());
 
         post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
-		return doRequest(post, VerifyResult.class);
-	}
 
+		return doRequest(post, ChargeWalletResult.class);
 
-	/**
-	 * 指定したユーザ・スロット番号のレシートを取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public DescribeReceiptByUserAndSlotResult describeReceiptByUserAndSlot(DescribeReceiptByUserAndSlotRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/receipt/" + request.getUserId() + "/" + request.getSlot() + "";
-
-        List<NameValuePair> queryString = new ArrayList<>();
-        if(request.getBegin() != null) queryString.add(new BasicNameValuePair("begin", String.valueOf(request.getBegin())));
-        if(request.getEnd() != null) queryString.add(new BasicNameValuePair("end", String.valueOf(request.getEnd())));
-        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
-        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
-
-
-		if(queryString.size() > 0) {
-			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
-		}
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				DescribeReceiptByUserAndSlotRequest.Constant.MODULE,
-				DescribeReceiptByUserAndSlotRequest.Constant.FUNCTION);
-
-		return doRequest(get, DescribeReceiptByUserAndSlotResult.class);
-	}
-
-
-	/**
-	 * 仮想通貨の状態を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public GetMoneyStatusResult getMoneyStatus(GetMoneyStatusRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/status";
-
-
-
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				GetMoneyStatusRequest.Constant.MODULE,
-				GetMoneyStatusRequest.Constant.FUNCTION);
-
-		return doRequest(get, GetMoneyStatusResult.class);
 	}
 
 
@@ -184,207 +101,58 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
+
 	public ChargeWalletByUserResult chargeWalletByUser(ChargeWalletByUserRequest request) {
+
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
 				.put("count", request.getCount())
 				.put("price", request.getPrice());
 
         if(request.getTransactionId() != null) body.put("transactionId", request.getTransactionId());
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/wallet/" + request.getSlot() + "/" + request.getUserId() + "/charge",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/" + (request.getUserId() == null ? "null" : request.getUserId()) + "/charge",
 				credential,
 				ENDPOINT,
 				ChargeWalletByUserRequest.Constant.MODULE,
 				ChargeWalletByUserRequest.Constant.FUNCTION,
 				body.toString());
 
+
 		return doRequest(post, ChargeWalletByUserResult.class);
+
 	}
 
 
 	/**
-	 * ウォレットの詳細を取得します<br>
+	 * ウォレットから仮想通貨を消費します<br>
+	 * <br>
+	 * paidOnly に true を指定することで、有償仮想通貨のみ消費対象とすることが出来ます。<br>
+	 * プレミアムなサービスの提供時などに活用してください。<br>
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
-	public GetWalletDetailResult getWalletDetail(GetWalletDetailRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/wallet/" + request.getSlot() + "/" + request.getUserId() + "/detail";
 
+	public ConsumeWalletResult consumeWallet(ConsumeWalletRequest request) {
 
-
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				GetWalletDetailRequest.Constant.MODULE,
-				GetWalletDetailRequest.Constant.FUNCTION);
-
-		return doRequest(get, GetWalletDetailResult.class);
-	}
-
-
-	/**
-	 * 仮想通貨を更新します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public UpdateMoneyResult updateMoney(UpdateMoneyRequest request) {
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("priority", request.getPriority())
-				.put("useVerifyReceipt", request.getUseVerifyReceipt())
-				.put("description", request.getDescription());
+				.put("count", request.getCount())
+				.put("use", request.getUse());
 
-        if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
-        if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
-		HttpPut put = createHttpPut(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "",
+        if(request.getPaidOnly() != null) body.put("paidOnly", request.getPaidOnly());
+		HttpPost post = createHttpPost(
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/consume",
 				credential,
 				ENDPOINT,
-				UpdateMoneyRequest.Constant.MODULE,
-				UpdateMoneyRequest.Constant.FUNCTION,
+				ConsumeWalletRequest.Constant.MODULE,
+				ConsumeWalletRequest.Constant.FUNCTION,
 				body.toString());
 
-		return doRequest(put, UpdateMoneyResult.class);
-	}
+        post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
 
+		return doRequest(post, ConsumeWalletResult.class);
 
-	/**
-	 * 仮想通貨を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public GetMoneyResult getMoney(GetMoneyRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "";
-
-
-
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				GetMoneyRequest.Constant.MODULE,
-				GetMoneyRequest.Constant.FUNCTION);
-
-		return doRequest(get, GetMoneyResult.class);
-	}
-
-
-	/**
-	 * 仮想通貨を削除します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 */
-	public void deleteMoney(DeleteMoneyRequest request) {
-		HttpDelete delete = createHttpDelete(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "",
-				credential,
-				ENDPOINT,
-				DeleteMoneyRequest.Constant.MODULE,
-				DeleteMoneyRequest.Constant.FUNCTION);
-
-		doRequest(delete, null);
-	}
-
-
-	/**
-	 * プラットフォーム個別商品を更新します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public UpdatePlatformedItemResult updatePlatformedItem(UpdatePlatformedItemRequest request) {
-		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("price", request.getPrice())
-				.put("name", request.getName());
-
-		HttpPut put = createHttpPut(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "/platformedItem/" + request.getPlatform() + "",
-				credential,
-				ENDPOINT,
-				UpdatePlatformedItemRequest.Constant.MODULE,
-				UpdatePlatformedItemRequest.Constant.FUNCTION,
-				body.toString());
-
-		return doRequest(put, UpdatePlatformedItemResult.class);
-	}
-
-
-	/**
-	 * プラットフォーム個別商品を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public GetPlatformedItemResult getPlatformedItem(GetPlatformedItemRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "/platformedItem/" + request.getPlatform() + "";
-
-
-
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				GetPlatformedItemRequest.Constant.MODULE,
-				GetPlatformedItemRequest.Constant.FUNCTION);
-
-		return doRequest(get, GetPlatformedItemResult.class);
-	}
-
-
-	/**
-	 * プラットフォーム個別商品を削除します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 */
-	public void deletePlatformedItem(DeletePlatformedItemRequest request) {
-		HttpDelete delete = createHttpDelete(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "/platformedItem/" + request.getPlatform() + "",
-				credential,
-				ENDPOINT,
-				DeletePlatformedItemRequest.Constant.MODULE,
-				DeletePlatformedItemRequest.Constant.FUNCTION);
-
-		doRequest(delete, null);
-	}
-
-
-	/**
-	 * ウォレット一覧を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public DescribeWalletResult describeWallet(DescribeWalletRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/wallet";
-
-        List<NameValuePair> queryString = new ArrayList<>();
-        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
-        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
-        if(request.getUserId() != null) queryString.add(new BasicNameValuePair("userId", String.valueOf(request.getUserId())));
-
-
-		if(queryString.size() > 0) {
-			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
-		}
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				DescribeWalletRequest.Constant.MODULE,
-				DescribeWalletRequest.Constant.FUNCTION);
-
-		return doRequest(get, DescribeWalletResult.class);
 	}
 
 
@@ -405,230 +173,24 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
+
 	public CreateItemResult createItem(CreateItemRequest request) {
+
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
 				.put("count", request.getCount())
 				.put("name", request.getName());
 
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item",
 				credential,
 				ENDPOINT,
 				CreateItemRequest.Constant.MODULE,
 				CreateItemRequest.Constant.FUNCTION,
 				body.toString());
 
+
 		return doRequest(post, CreateItemResult.class);
-	}
 
-
-	/**
-	 * 商品の一覧を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public DescribeItemResult describeItem(DescribeItemRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item";
-
-        List<NameValuePair> queryString = new ArrayList<>();
-        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
-        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
-
-
-		if(queryString.size() > 0) {
-			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
-		}
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				DescribeItemRequest.Constant.MODULE,
-				DescribeItemRequest.Constant.FUNCTION);
-
-		return doRequest(get, DescribeItemResult.class);
-	}
-
-
-	/**
-	 * レシートを取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public DescribeReceiptResult describeReceipt(DescribeReceiptRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/receipt";
-
-        List<NameValuePair> queryString = new ArrayList<>();
-        if(request.getBegin() != null) queryString.add(new BasicNameValuePair("begin", String.valueOf(request.getBegin())));
-        if(request.getEnd() != null) queryString.add(new BasicNameValuePair("end", String.valueOf(request.getEnd())));
-        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
-        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
-
-
-		if(queryString.size() > 0) {
-			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
-		}
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				DescribeReceiptRequest.Constant.MODULE,
-				DescribeReceiptRequest.Constant.FUNCTION);
-
-		return doRequest(get, DescribeReceiptResult.class);
-	}
-
-
-	/**
-	 * 商品を更新します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public UpdateItemResult updateItem(UpdateItemRequest request) {
-		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("count", request.getCount());
-
-		HttpPut put = createHttpPut(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "",
-				credential,
-				ENDPOINT,
-				UpdateItemRequest.Constant.MODULE,
-				UpdateItemRequest.Constant.FUNCTION,
-				body.toString());
-
-		return doRequest(put, UpdateItemResult.class);
-	}
-
-
-	/**
-	 * 商品を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public GetItemResult getItem(GetItemRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "";
-
-
-
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				GetItemRequest.Constant.MODULE,
-				GetItemRequest.Constant.FUNCTION);
-
-		return doRequest(get, GetItemResult.class);
-	}
-
-
-	/**
-	 * 商品を削除します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 */
-	public void deleteItem(DeleteItemRequest request) {
-		HttpDelete delete = createHttpDelete(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "",
-				credential,
-				ENDPOINT,
-				DeleteItemRequest.Constant.MODULE,
-				DeleteItemRequest.Constant.FUNCTION);
-
-		doRequest(delete, null);
-	}
-
-
-	/**
-	 * プラットフォーム個別商品を新規作成します<br>
-	 * <br>
-	 * name には各プラットフォームの管理コンソールで作成した消費型アイテムの名前を指定してください。<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public CreatePlatformedItemResult createPlatformedItem(CreatePlatformedItemRequest request) {
-		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("platform", request.getPlatform())
-				.put("price", request.getPrice())
-				.put("name", request.getName());
-
-		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "/platformedItem",
-				credential,
-				ENDPOINT,
-				CreatePlatformedItemRequest.Constant.MODULE,
-				CreatePlatformedItemRequest.Constant.FUNCTION,
-				body.toString());
-
-		return doRequest(post, CreatePlatformedItemResult.class);
-	}
-
-
-	/**
-	 * プラットフォーム個別商品の一覧を取得します<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public DescribePlatformedItemResult describePlatformedItem(DescribePlatformedItemRequest request) {
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/item/" + request.getItemName() + "/platformedItem";
-
-        List<NameValuePair> queryString = new ArrayList<>();
-        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
-        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
-
-
-		if(queryString.size() > 0) {
-			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
-		}
-		HttpGet get = createHttpGet(
-				url,
-				credential,
-				ENDPOINT,
-				DescribePlatformedItemRequest.Constant.MODULE,
-				DescribePlatformedItemRequest.Constant.FUNCTION);
-
-		return doRequest(get, DescribePlatformedItemResult.class);
-	}
-
-
-	/**
-	 * ウォレットに仮想通貨をチャージします<br>
-	 * <br>
-	 * trasactionId にトランザクションIDを指定することで、<br>
-	 * 1回の課金処理で複数回仮想通貨をチャージすることを防ぐことが出来ます。<br>
-	 * 重複したリクエストが発生した場合は 409エラー(ConflictException) が発生しますが、正常処理とするべきです。<br>
-	 * <br>
-	 *
-	 * @param request リクエストパラメータ
-	 * @return 結果
-	 */
-	public ChargeWalletResult chargeWallet(ChargeWalletRequest request) {
-		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("count", request.getCount())
-				.put("price", request.getPrice());
-
-        if(request.getTransactionId() != null) body.put("transactionId", request.getTransactionId());
-		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/wallet/" + request.getSlot() + "/charge",
-				credential,
-				ENDPOINT,
-				ChargeWalletRequest.Constant.MODULE,
-				ChargeWalletRequest.Constant.FUNCTION,
-				body.toString());
-
-        post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
-		return doRequest(post, ChargeWalletResult.class);
 	}
 
 
@@ -666,7 +228,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
+
 	public CreateMoneyResult createMoney(CreateMoneyRequest request) {
+
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
 				.put("useVerifyReceipt", request.getUseVerifyReceipt())
 				.put("name", request.getName())
@@ -685,7 +249,151 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				CreateMoneyRequest.Constant.FUNCTION,
 				body.toString());
 
+
 		return doRequest(post, CreateMoneyResult.class);
+
+	}
+
+
+	/**
+	 * プラットフォーム個別商品を新規作成します<br>
+	 * <br>
+	 * name には各プラットフォームの管理コンソールで作成した消費型アイテムの名前を指定してください。<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public CreatePlatformedItemResult createPlatformedItem(CreatePlatformedItemRequest request) {
+
+		ObjectNode body = JsonNodeFactory.instance.objectNode()
+				.put("platform", request.getPlatform())
+				.put("price", request.getPrice())
+				.put("name", request.getName());
+
+		HttpPost post = createHttpPost(
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem",
+				credential,
+				ENDPOINT,
+				CreatePlatformedItemRequest.Constant.MODULE,
+				CreatePlatformedItemRequest.Constant.FUNCTION,
+				body.toString());
+
+
+		return doRequest(post, CreatePlatformedItemResult.class);
+
+	}
+
+
+	/**
+	 * 商品を削除します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 */
+
+	public void deleteItem(DeleteItemRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "";
+
+
+
+		HttpDelete delete = createHttpDelete(
+				url,
+				credential,
+				ENDPOINT,
+				DeleteItemRequest.Constant.MODULE,
+				DeleteItemRequest.Constant.FUNCTION);
+
+
+		doRequest(delete, null);
+
+	}
+
+
+	/**
+	 * 仮想通貨を削除します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 */
+
+	public void deleteMoney(DeleteMoneyRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "";
+
+
+
+		HttpDelete delete = createHttpDelete(
+				url,
+				credential,
+				ENDPOINT,
+				DeleteMoneyRequest.Constant.MODULE,
+				DeleteMoneyRequest.Constant.FUNCTION);
+
+
+		doRequest(delete, null);
+
+	}
+
+
+	/**
+	 * プラットフォーム個別商品を削除します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 */
+
+	public void deletePlatformedItem(DeletePlatformedItemRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null ? "null" : request.getPlatform()) + "";
+
+
+
+		HttpDelete delete = createHttpDelete(
+				url,
+				credential,
+				ENDPOINT,
+				DeletePlatformedItemRequest.Constant.MODULE,
+				DeletePlatformedItemRequest.Constant.FUNCTION);
+
+
+		doRequest(delete, null);
+
+	}
+
+
+	/**
+	 * 商品の一覧を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public DescribeItemResult describeItem(DescribeItemRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item";
+
+        List<NameValuePair> queryString = new ArrayList<>();
+        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
+        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
+
+
+		if(queryString.size() > 0) {
+			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
+		}
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				DescribeItemRequest.Constant.MODULE,
+				DescribeItemRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, DescribeItemResult.class);
+
 	}
 
 
@@ -696,7 +404,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
+
 	public DescribeMoneyResult describeMoney(DescribeMoneyRequest request) {
+
 	    String url = Gs2Constant.ENDPOINT_HOST + "/money";
 
         List<NameValuePair> queryString = new ArrayList<>();
@@ -714,36 +424,439 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				DescribeMoneyRequest.Constant.MODULE,
 				DescribeMoneyRequest.Constant.FUNCTION);
 
+
 		return doRequest(get, DescribeMoneyResult.class);
+
 	}
 
 
 	/**
-	 * ウォレットから仮想通貨を消費します<br>
-	 * <br>
-	 * paidOnly に true を指定することで、有償仮想通貨のみ消費対象とすることが出来ます。<br>
-	 * プレミアムなサービスの提供時などに活用してください。<br>
+	 * プラットフォーム個別商品の一覧を取得します<br>
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
 	 * @return 結果
 	 */
-	public ConsumeWalletResult consumeWallet(ConsumeWalletRequest request) {
-		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("count", request.getCount())
-				.put("use", request.getUse());
 
-        if(request.getPaidOnly() != null) body.put("paidOnly", request.getPaidOnly());
-		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + request.getMoneyName() + "/wallet/" + request.getSlot() + "/consume",
+	public DescribePlatformedItemResult describePlatformedItem(DescribePlatformedItemRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem";
+
+        List<NameValuePair> queryString = new ArrayList<>();
+        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
+        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
+
+
+		if(queryString.size() > 0) {
+			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
+		}
+		HttpGet get = createHttpGet(
+				url,
 				credential,
 				ENDPOINT,
-				ConsumeWalletRequest.Constant.MODULE,
-				ConsumeWalletRequest.Constant.FUNCTION,
+				DescribePlatformedItemRequest.Constant.MODULE,
+				DescribePlatformedItemRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, DescribePlatformedItemResult.class);
+
+	}
+
+
+	/**
+	 * レシートを取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public DescribeReceiptResult describeReceipt(DescribeReceiptRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/receipt";
+
+        List<NameValuePair> queryString = new ArrayList<>();
+        if(request.getBegin() != null) queryString.add(new BasicNameValuePair("begin", String.valueOf(request.getBegin())));
+        if(request.getEnd() != null) queryString.add(new BasicNameValuePair("end", String.valueOf(request.getEnd())));
+        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
+        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
+
+
+		if(queryString.size() > 0) {
+			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
+		}
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				DescribeReceiptRequest.Constant.MODULE,
+				DescribeReceiptRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, DescribeReceiptResult.class);
+
+	}
+
+
+	/**
+	 * 指定したユーザ・スロット番号のレシートを取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public DescribeReceiptByUserAndSlotResult describeReceiptByUserAndSlot(DescribeReceiptByUserAndSlotRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/receipt/" + (request.getUserId() == null ? "null" : request.getUserId()) + "/" + (request.getSlot() == null ? "null" : request.getSlot()) + "";
+
+        List<NameValuePair> queryString = new ArrayList<>();
+        if(request.getBegin() != null) queryString.add(new BasicNameValuePair("begin", String.valueOf(request.getBegin())));
+        if(request.getEnd() != null) queryString.add(new BasicNameValuePair("end", String.valueOf(request.getEnd())));
+        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
+        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
+
+
+		if(queryString.size() > 0) {
+			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
+		}
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				DescribeReceiptByUserAndSlotRequest.Constant.MODULE,
+				DescribeReceiptByUserAndSlotRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, DescribeReceiptByUserAndSlotResult.class);
+
+	}
+
+
+	/**
+	 * ウォレット一覧を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public DescribeWalletResult describeWallet(DescribeWalletRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet";
+
+        List<NameValuePair> queryString = new ArrayList<>();
+        if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
+        if(request.getLimit() != null) queryString.add(new BasicNameValuePair("limit", String.valueOf(request.getLimit())));
+        if(request.getUserId() != null) queryString.add(new BasicNameValuePair("userId", String.valueOf(request.getUserId())));
+
+
+		if(queryString.size() > 0) {
+			url += "?" + URLEncodedUtils.format(queryString, "UTF-8");
+		}
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				DescribeWalletRequest.Constant.MODULE,
+				DescribeWalletRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, DescribeWalletResult.class);
+
+	}
+
+
+	/**
+	 * 商品を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public GetItemResult getItem(GetItemRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "";
+
+
+
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				GetItemRequest.Constant.MODULE,
+				GetItemRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, GetItemResult.class);
+
+	}
+
+
+	/**
+	 * 仮想通貨を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public GetMoneyResult getMoney(GetMoneyRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "";
+
+
+
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				GetMoneyRequest.Constant.MODULE,
+				GetMoneyRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, GetMoneyResult.class);
+
+	}
+
+
+	/**
+	 * 仮想通貨の状態を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public GetMoneyStatusResult getMoneyStatus(GetMoneyStatusRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/status";
+
+
+
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				GetMoneyStatusRequest.Constant.MODULE,
+				GetMoneyStatusRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, GetMoneyStatusResult.class);
+
+	}
+
+
+	/**
+	 * プラットフォーム個別商品を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public GetPlatformedItemResult getPlatformedItem(GetPlatformedItemRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null ? "null" : request.getPlatform()) + "";
+
+
+
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				GetPlatformedItemRequest.Constant.MODULE,
+				GetPlatformedItemRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, GetPlatformedItemResult.class);
+
+	}
+
+
+	/**
+	 * ウォレットを取得します<br>
+	 * <br>
+	 * ここでは有償仮想通貨と無償仮想通貨の数が取得できます。<br>
+	 * 有償仮想通貨は単価ごとに所持数量が別途管理されています。<br>
+	 * 詳細な構成を取得したい場合は Gs2Money:GetWalletDetail を使ってください。<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public GetWalletResult getWallet(GetWalletRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "";
+
+
+
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				GetWalletRequest.Constant.MODULE,
+				GetWalletRequest.Constant.FUNCTION);
+
+        get.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
+
+		return doRequest(get, GetWalletResult.class);
+
+	}
+
+
+	/**
+	 * ウォレットの詳細を取得します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public GetWalletDetailResult getWalletDetail(GetWalletDetailRequest request) {
+
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/" + (request.getUserId() == null ? "null" : request.getUserId()) + "/detail";
+
+
+
+		HttpGet get = createHttpGet(
+				url,
+				credential,
+				ENDPOINT,
+				GetWalletDetailRequest.Constant.MODULE,
+				GetWalletDetailRequest.Constant.FUNCTION);
+
+
+		return doRequest(get, GetWalletDetailResult.class);
+
+	}
+
+
+	/**
+	 * 商品を更新します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public UpdateItemResult updateItem(UpdateItemRequest request) {
+
+		ObjectNode body = JsonNodeFactory.instance.objectNode()
+				.put("count", request.getCount());
+
+		HttpPut put = createHttpPut(
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "",
+				credential,
+				ENDPOINT,
+				UpdateItemRequest.Constant.MODULE,
+				UpdateItemRequest.Constant.FUNCTION,
+				body.toString());
+
+
+		return doRequest(put, UpdateItemResult.class);
+
+	}
+
+
+	/**
+	 * 仮想通貨を更新します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public UpdateMoneyResult updateMoney(UpdateMoneyRequest request) {
+
+		ObjectNode body = JsonNodeFactory.instance.objectNode()
+				.put("priority", request.getPriority())
+				.put("useVerifyReceipt", request.getUseVerifyReceipt())
+				.put("description", request.getDescription());
+
+        if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
+        if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
+		HttpPut put = createHttpPut(
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "",
+				credential,
+				ENDPOINT,
+				UpdateMoneyRequest.Constant.MODULE,
+				UpdateMoneyRequest.Constant.FUNCTION,
+				body.toString());
+
+
+		return doRequest(put, UpdateMoneyResult.class);
+
+	}
+
+
+	/**
+	 * プラットフォーム個別商品を更新します<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public UpdatePlatformedItemResult updatePlatformedItem(UpdatePlatformedItemRequest request) {
+
+		ObjectNode body = JsonNodeFactory.instance.objectNode()
+				.put("price", request.getPrice())
+				.put("name", request.getName());
+
+		HttpPut put = createHttpPut(
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null ? "null" : request.getPlatform()) + "",
+				credential,
+				ENDPOINT,
+				UpdatePlatformedItemRequest.Constant.MODULE,
+				UpdatePlatformedItemRequest.Constant.FUNCTION,
+				body.toString());
+
+
+		return doRequest(put, UpdatePlatformedItemResult.class);
+
+	}
+
+
+	/**
+	 * レシートを検証する<br>
+	 * <br>
+	 * 下記フォーマットのレシートをPOSTすることでレシートを検証し、仮想通貨のチャージまでアトミックに実行できます。<br>
+	 * {<br>
+	 *   'Store': ストア名,<br>
+	 *   'Payload': レシート本体<br>
+	 * }<br>
+	 * <br>
+	 * 現在ストア名には<br>
+	 * - AppleAppStore<br>
+	 * - GooglePlay<br>
+	 * が指定できます。<br>
+	 * <br>
+	 *
+	 * @param request リクエストパラメータ
+	 * @return 結果
+	 */
+
+	public VerifyResult verify(VerifyRequest request) {
+
+		ObjectNode body = JsonNodeFactory.instance.objectNode()
+				.put("slot", request.getSlot())
+				.put("receipt", request.getReceipt());
+
+		HttpPost post = createHttpPost(
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/verify",
+				credential,
+				ENDPOINT,
+				VerifyRequest.Constant.MODULE,
+				VerifyRequest.Constant.FUNCTION,
 				body.toString());
 
         post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
-		return doRequest(post, ConsumeWalletResult.class);
+
+		return doRequest(post, VerifyResult.class);
+
 	}
 
 
