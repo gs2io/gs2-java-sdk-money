@@ -30,6 +30,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Money implements Serializable {
 
+	/** ウォレット残高加算時 に実行されるGS2-Script */
+	private String chargeWalletTriggerScript;
+
+	/** 説明文 */
+	private String description;
+
+	/** ウォレット新規作成完了時 に実行されるGS2-Script */
+	private String createWalletDoneTriggerScript;
+
+	/** Google のレシート検証用公開鍵 */
+	private String googleKey;
+
+	/** 通貨 */
+	private String currency;
+
+	/** ウォレット残高消費時 に実行されるGS2-Script */
+	private String consumeWalletTriggerScript;
+
+	/** ウォレット新規作成時 に実行されるGS2-Script */
+	private String createWalletTriggerScript;
+
+	/** 最終更新日時(エポック秒) */
+	private Integer updateAt;
+
+	/** ウォレット残高消費完了時 に実行されるGS2-Script */
+	private String consumeWalletDoneTriggerScript;
+
 	/** ストアプラットフォームのレシートの検証機能を利用するか */
 	private Boolean useVerifyReceipt;
 
@@ -39,14 +66,11 @@ public class Money implements Serializable {
 	/** 仮想通貨名 */
 	private String name;
 
-	/** Google のレシート検証用公開鍵 */
-	private String googleKey;
-
 	/** 支払い優先度 */
 	private String priority;
 
-	/** 通貨 */
-	private String currency;
+	/** ウォレット残高加算完了時 に実行されるGS2-Script */
+	private String chargeWalletDoneTriggerScript;
 
 	/** 無償仮想通貨を異なるスロットで共有するか */
 	private Boolean shareFree;
@@ -60,15 +84,171 @@ public class Money implements Serializable {
 	/** 未使用残高 */
 	private Double balance;
 
-	/** 最終更新日時(エポック秒) */
-	private Integer updateAt;
-
 	/** Apple のアプリケーションバンドルID */
 	private String appleKey;
 
-	/** 説明文 */
-	private String description;
 
+	/**
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高加算時 に実行されるGS2-Script
+	 */
+	public String getChargeWalletTriggerScript() {
+		return chargeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param chargeWalletTriggerScript ウォレット残高加算時 に実行されるGS2-Script
+	 */
+	public void setChargeWalletTriggerScript(String chargeWalletTriggerScript) {
+		this.chargeWalletTriggerScript = chargeWalletTriggerScript;
+	}
+
+	/**
+	 * 説明文を取得
+	 *
+	 * @return 説明文
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * 説明文を設定
+	 *
+	 * @param description 説明文
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット新規作成完了時 に実行されるGS2-Script
+	 */
+	public String getCreateWalletDoneTriggerScript() {
+		return createWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletDoneTriggerScript ウォレット新規作成完了時 に実行されるGS2-Script
+	 */
+	public void setCreateWalletDoneTriggerScript(String createWalletDoneTriggerScript) {
+		this.createWalletDoneTriggerScript = createWalletDoneTriggerScript;
+	}
+
+	/**
+	 * Google のレシート検証用公開鍵を取得
+	 *
+	 * @return Google のレシート検証用公開鍵
+	 */
+	public String getGoogleKey() {
+		return googleKey;
+	}
+
+	/**
+	 * Google のレシート検証用公開鍵を設定
+	 *
+	 * @param googleKey Google のレシート検証用公開鍵
+	 */
+	public void setGoogleKey(String googleKey) {
+		this.googleKey = googleKey;
+	}
+
+	/**
+	 * 通貨を取得
+	 *
+	 * @return 通貨
+	 */
+	public String getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * 通貨を設定
+	 *
+	 * @param currency 通貨
+	 */
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高消費時 に実行されるGS2-Script
+	 */
+	public String getConsumeWalletTriggerScript() {
+		return consumeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletTriggerScript ウォレット残高消費時 に実行されるGS2-Script
+	 */
+	public void setConsumeWalletTriggerScript(String consumeWalletTriggerScript) {
+		this.consumeWalletTriggerScript = consumeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット新規作成時 に実行されるGS2-Script
+	 */
+	public String getCreateWalletTriggerScript() {
+		return createWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletTriggerScript ウォレット新規作成時 に実行されるGS2-Script
+	 */
+	public void setCreateWalletTriggerScript(String createWalletTriggerScript) {
+		this.createWalletTriggerScript = createWalletTriggerScript;
+	}
+
+	/**
+	 * 最終更新日時(エポック秒)を取得
+	 *
+	 * @return 最終更新日時(エポック秒)
+	 */
+	public Integer getUpdateAt() {
+		return updateAt;
+	}
+
+	/**
+	 * 最終更新日時(エポック秒)を設定
+	 *
+	 * @param updateAt 最終更新日時(エポック秒)
+	 */
+	public void setUpdateAt(Integer updateAt) {
+		this.updateAt = updateAt;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高消費完了時 に実行されるGS2-Script
+	 */
+	public String getConsumeWalletDoneTriggerScript() {
+		return consumeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletDoneTriggerScript ウォレット残高消費完了時 に実行されるGS2-Script
+	 */
+	public void setConsumeWalletDoneTriggerScript(String consumeWalletDoneTriggerScript) {
+		this.consumeWalletDoneTriggerScript = consumeWalletDoneTriggerScript;
+	}
 
 	/**
 	 * ストアプラットフォームのレシートの検証機能を利用するかを取得
@@ -125,24 +305,6 @@ public class Money implements Serializable {
 	}
 
 	/**
-	 * Google のレシート検証用公開鍵を取得
-	 *
-	 * @return Google のレシート検証用公開鍵
-	 */
-	public String getGoogleKey() {
-		return googleKey;
-	}
-
-	/**
-	 * Google のレシート検証用公開鍵を設定
-	 *
-	 * @param googleKey Google のレシート検証用公開鍵
-	 */
-	public void setGoogleKey(String googleKey) {
-		this.googleKey = googleKey;
-	}
-
-	/**
 	 * 支払い優先度を取得
 	 *
 	 * @return 支払い優先度
@@ -161,21 +323,21 @@ public class Money implements Serializable {
 	}
 
 	/**
-	 * 通貨を取得
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを取得
 	 *
-	 * @return 通貨
+	 * @return ウォレット残高加算完了時 に実行されるGS2-Script
 	 */
-	public String getCurrency() {
-		return currency;
+	public String getChargeWalletDoneTriggerScript() {
+		return chargeWalletDoneTriggerScript;
 	}
 
 	/**
-	 * 通貨を設定
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを設定
 	 *
-	 * @param currency 通貨
+	 * @param chargeWalletDoneTriggerScript ウォレット残高加算完了時 に実行されるGS2-Script
 	 */
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setChargeWalletDoneTriggerScript(String chargeWalletDoneTriggerScript) {
+		this.chargeWalletDoneTriggerScript = chargeWalletDoneTriggerScript;
 	}
 
 	/**
@@ -251,24 +413,6 @@ public class Money implements Serializable {
 	}
 
 	/**
-	 * 最終更新日時(エポック秒)を取得
-	 *
-	 * @return 最終更新日時(エポック秒)
-	 */
-	public Integer getUpdateAt() {
-		return updateAt;
-	}
-
-	/**
-	 * 最終更新日時(エポック秒)を設定
-	 *
-	 * @param updateAt 最終更新日時(エポック秒)
-	 */
-	public void setUpdateAt(Integer updateAt) {
-		this.updateAt = updateAt;
-	}
-
-	/**
 	 * Apple のアプリケーションバンドルIDを取得
 	 *
 	 * @return Apple のアプリケーションバンドルID
@@ -284,24 +428,6 @@ public class Money implements Serializable {
 	 */
 	public void setAppleKey(String appleKey) {
 		this.appleKey = appleKey;
-	}
-
-	/**
-	 * 説明文を取得
-	 *
-	 * @return 説明文
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * 説明文を設定
-	 *
-	 * @param description 説明文
-	 */
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 }

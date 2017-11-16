@@ -31,11 +31,20 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 		public static final String FUNCTION = "CreateMoney";
 	}
 
+	/** ウォレット残高加算時 に実行されるGS2-Script */
+	private String chargeWalletTriggerScript;
+
 	/** ストアプラットフォームのレシートの検証機能を利用するか */
 	private Boolean useVerifyReceipt;
 
 	/** 仮想通貨名 */
 	private String name;
+
+	/** 通貨 */
+	private String currency;
+
+	/** ウォレット新規作成完了時 に実行されるGS2-Script */
+	private String createWalletDoneTriggerScript;
 
 	/** Google のレシート検証用公開鍵 */
 	private String googleKey;
@@ -43,18 +52,56 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	/** 支払い優先度 */
 	private String priority;
 
-	/** 通貨 */
-	private String currency;
+	/** ウォレット残高加算完了時 に実行されるGS2-Script */
+	private String chargeWalletDoneTriggerScript;
 
 	/** 無償仮想通貨を異なるスロットで共有するか */
 	private Boolean shareFree;
 
+	/** ウォレット残高消費時 に実行されるGS2-Script */
+	private String consumeWalletTriggerScript;
+
+	/** ウォレット新規作成時 に実行されるGS2-Script */
+	private String createWalletTriggerScript;
+
 	/** Apple のアプリケーションバンドルID */
 	private String appleKey;
+
+	/** ウォレット残高消費完了時 に実行されるGS2-Script */
+	private String consumeWalletDoneTriggerScript;
 
 	/** 説明文(1024文字以内) */
 	private String description;
 
+
+	/**
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高加算時 に実行されるGS2-Script
+	 */
+	public String getChargeWalletTriggerScript() {
+		return chargeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param chargeWalletTriggerScript ウォレット残高加算時 に実行されるGS2-Script
+	 */
+	public void setChargeWalletTriggerScript(String chargeWalletTriggerScript) {
+		this.chargeWalletTriggerScript = chargeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param chargeWalletTriggerScript ウォレット残高加算時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public CreateMoneyRequest withChargeWalletTriggerScript(String chargeWalletTriggerScript) {
+		setChargeWalletTriggerScript(chargeWalletTriggerScript);
+		return this;
+	}
 
 	/**
 	 * ストアプラットフォームのレシートの検証機能を利用するかを取得
@@ -111,6 +158,64 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	 */
 	public CreateMoneyRequest withName(String name) {
 		setName(name);
+		return this;
+	}
+
+	/**
+	 * 通貨を取得
+	 *
+	 * @return 通貨
+	 */
+	public String getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * 通貨を設定
+	 *
+	 * @param currency 通貨
+	 */
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	/**
+	 * 通貨を設定
+	 *
+	 * @param currency 通貨
+	 * @return this
+	 */
+	public CreateMoneyRequest withCurrency(String currency) {
+		setCurrency(currency);
+		return this;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット新規作成完了時 に実行されるGS2-Script
+	 */
+	public String getCreateWalletDoneTriggerScript() {
+		return createWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletDoneTriggerScript ウォレット新規作成完了時 に実行されるGS2-Script
+	 */
+	public void setCreateWalletDoneTriggerScript(String createWalletDoneTriggerScript) {
+		this.createWalletDoneTriggerScript = createWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletDoneTriggerScript ウォレット新規作成完了時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public CreateMoneyRequest withCreateWalletDoneTriggerScript(String createWalletDoneTriggerScript) {
+		setCreateWalletDoneTriggerScript(createWalletDoneTriggerScript);
 		return this;
 	}
 
@@ -173,31 +278,31 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	}
 
 	/**
-	 * 通貨を取得
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを取得
 	 *
-	 * @return 通貨
+	 * @return ウォレット残高加算完了時 に実行されるGS2-Script
 	 */
-	public String getCurrency() {
-		return currency;
+	public String getChargeWalletDoneTriggerScript() {
+		return chargeWalletDoneTriggerScript;
 	}
 
 	/**
-	 * 通貨を設定
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを設定
 	 *
-	 * @param currency 通貨
+	 * @param chargeWalletDoneTriggerScript ウォレット残高加算完了時 に実行されるGS2-Script
 	 */
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setChargeWalletDoneTriggerScript(String chargeWalletDoneTriggerScript) {
+		this.chargeWalletDoneTriggerScript = chargeWalletDoneTriggerScript;
 	}
 
 	/**
-	 * 通貨を設定
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを設定
 	 *
-	 * @param currency 通貨
+	 * @param chargeWalletDoneTriggerScript ウォレット残高加算完了時 に実行されるGS2-Script
 	 * @return this
 	 */
-	public CreateMoneyRequest withCurrency(String currency) {
-		setCurrency(currency);
+	public CreateMoneyRequest withChargeWalletDoneTriggerScript(String chargeWalletDoneTriggerScript) {
+		setChargeWalletDoneTriggerScript(chargeWalletDoneTriggerScript);
 		return this;
 	}
 
@@ -231,6 +336,64 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	}
 
 	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高消費時 に実行されるGS2-Script
+	 */
+	public String getConsumeWalletTriggerScript() {
+		return consumeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletTriggerScript ウォレット残高消費時 に実行されるGS2-Script
+	 */
+	public void setConsumeWalletTriggerScript(String consumeWalletTriggerScript) {
+		this.consumeWalletTriggerScript = consumeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletTriggerScript ウォレット残高消費時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public CreateMoneyRequest withConsumeWalletTriggerScript(String consumeWalletTriggerScript) {
+		setConsumeWalletTriggerScript(consumeWalletTriggerScript);
+		return this;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット新規作成時 に実行されるGS2-Script
+	 */
+	public String getCreateWalletTriggerScript() {
+		return createWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletTriggerScript ウォレット新規作成時 に実行されるGS2-Script
+	 */
+	public void setCreateWalletTriggerScript(String createWalletTriggerScript) {
+		this.createWalletTriggerScript = createWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletTriggerScript ウォレット新規作成時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public CreateMoneyRequest withCreateWalletTriggerScript(String createWalletTriggerScript) {
+		setCreateWalletTriggerScript(createWalletTriggerScript);
+		return this;
+	}
+
+	/**
 	 * Apple のアプリケーションバンドルIDを取得
 	 *
 	 * @return Apple のアプリケーションバンドルID
@@ -256,6 +419,35 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	 */
 	public CreateMoneyRequest withAppleKey(String appleKey) {
 		setAppleKey(appleKey);
+		return this;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高消費完了時 に実行されるGS2-Script
+	 */
+	public String getConsumeWalletDoneTriggerScript() {
+		return consumeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletDoneTriggerScript ウォレット残高消費完了時 に実行されるGS2-Script
+	 */
+	public void setConsumeWalletDoneTriggerScript(String consumeWalletDoneTriggerScript) {
+		this.consumeWalletDoneTriggerScript = consumeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletDoneTriggerScript ウォレット残高消費完了時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public CreateMoneyRequest withConsumeWalletDoneTriggerScript(String consumeWalletDoneTriggerScript) {
+		setConsumeWalletDoneTriggerScript(consumeWalletDoneTriggerScript);
 		return this;
 	}
 

@@ -34,20 +34,38 @@ public class UpdateMoneyRequest extends Gs2BasicRequest<UpdateMoneyRequest> {
 	/** 取得する仮想通貨の名前 */
 	private String moneyName;
 
-	/** 支払い優先度 */
-	private String priority;
+	/** ウォレット残高加算時 に実行されるGS2-Script */
+	private String chargeWalletTriggerScript;
 
 	/** ストアプラットフォームのレシートの検証機能を利用するか */
 	private Boolean useVerifyReceipt;
 
-	/** Google のレシート検証用公開鍵 */
-	private String googleKey;
-
 	/** 説明文(1024文字以内) */
 	private String description;
 
+	/** ウォレット新規作成完了時 に実行されるGS2-Script */
+	private String createWalletDoneTriggerScript;
+
+	/** Google のレシート検証用公開鍵 */
+	private String googleKey;
+
+	/** 支払い優先度 */
+	private String priority;
+
+	/** ウォレット残高加算完了時 に実行されるGS2-Script */
+	private String chargeWalletDoneTriggerScript;
+
+	/** ウォレット残高消費時 に実行されるGS2-Script */
+	private String consumeWalletTriggerScript;
+
+	/** ウォレット新規作成時 に実行されるGS2-Script */
+	private String createWalletTriggerScript;
+
 	/** Apple のアプリケーションバンドルID */
 	private String appleKey;
+
+	/** ウォレット残高消費完了時 に実行されるGS2-Script */
+	private String consumeWalletDoneTriggerScript;
 
 
 	/**
@@ -80,31 +98,31 @@ public class UpdateMoneyRequest extends Gs2BasicRequest<UpdateMoneyRequest> {
 	}
 
 	/**
-	 * 支払い優先度を取得
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを取得
 	 *
-	 * @return 支払い優先度
+	 * @return ウォレット残高加算時 に実行されるGS2-Script
 	 */
-	public String getPriority() {
-		return priority;
+	public String getChargeWalletTriggerScript() {
+		return chargeWalletTriggerScript;
 	}
 
 	/**
-	 * 支払い優先度を設定
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを設定
 	 *
-	 * @param priority 支払い優先度
+	 * @param chargeWalletTriggerScript ウォレット残高加算時 に実行されるGS2-Script
 	 */
-	public void setPriority(String priority) {
-		this.priority = priority;
+	public void setChargeWalletTriggerScript(String chargeWalletTriggerScript) {
+		this.chargeWalletTriggerScript = chargeWalletTriggerScript;
 	}
 
 	/**
-	 * 支払い優先度を設定
+	 * ウォレット残高加算時 に実行されるGS2-Scriptを設定
 	 *
-	 * @param priority 支払い優先度
+	 * @param chargeWalletTriggerScript ウォレット残高加算時 に実行されるGS2-Script
 	 * @return this
 	 */
-	public UpdateMoneyRequest withPriority(String priority) {
-		setPriority(priority);
+	public UpdateMoneyRequest withChargeWalletTriggerScript(String chargeWalletTriggerScript) {
+		setChargeWalletTriggerScript(chargeWalletTriggerScript);
 		return this;
 	}
 
@@ -138,35 +156,6 @@ public class UpdateMoneyRequest extends Gs2BasicRequest<UpdateMoneyRequest> {
 	}
 
 	/**
-	 * Google のレシート検証用公開鍵を取得
-	 *
-	 * @return Google のレシート検証用公開鍵
-	 */
-	public String getGoogleKey() {
-		return googleKey;
-	}
-
-	/**
-	 * Google のレシート検証用公開鍵を設定
-	 *
-	 * @param googleKey Google のレシート検証用公開鍵
-	 */
-	public void setGoogleKey(String googleKey) {
-		this.googleKey = googleKey;
-	}
-
-	/**
-	 * Google のレシート検証用公開鍵を設定
-	 *
-	 * @param googleKey Google のレシート検証用公開鍵
-	 * @return this
-	 */
-	public UpdateMoneyRequest withGoogleKey(String googleKey) {
-		setGoogleKey(googleKey);
-		return this;
-	}
-
-	/**
 	 * 説明文(1024文字以内)を取得
 	 *
 	 * @return 説明文(1024文字以内)
@@ -196,6 +185,180 @@ public class UpdateMoneyRequest extends Gs2BasicRequest<UpdateMoneyRequest> {
 	}
 
 	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット新規作成完了時 に実行されるGS2-Script
+	 */
+	public String getCreateWalletDoneTriggerScript() {
+		return createWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletDoneTriggerScript ウォレット新規作成完了時 に実行されるGS2-Script
+	 */
+	public void setCreateWalletDoneTriggerScript(String createWalletDoneTriggerScript) {
+		this.createWalletDoneTriggerScript = createWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletDoneTriggerScript ウォレット新規作成完了時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public UpdateMoneyRequest withCreateWalletDoneTriggerScript(String createWalletDoneTriggerScript) {
+		setCreateWalletDoneTriggerScript(createWalletDoneTriggerScript);
+		return this;
+	}
+
+	/**
+	 * Google のレシート検証用公開鍵を取得
+	 *
+	 * @return Google のレシート検証用公開鍵
+	 */
+	public String getGoogleKey() {
+		return googleKey;
+	}
+
+	/**
+	 * Google のレシート検証用公開鍵を設定
+	 *
+	 * @param googleKey Google のレシート検証用公開鍵
+	 */
+	public void setGoogleKey(String googleKey) {
+		this.googleKey = googleKey;
+	}
+
+	/**
+	 * Google のレシート検証用公開鍵を設定
+	 *
+	 * @param googleKey Google のレシート検証用公開鍵
+	 * @return this
+	 */
+	public UpdateMoneyRequest withGoogleKey(String googleKey) {
+		setGoogleKey(googleKey);
+		return this;
+	}
+
+	/**
+	 * 支払い優先度を取得
+	 *
+	 * @return 支払い優先度
+	 */
+	public String getPriority() {
+		return priority;
+	}
+
+	/**
+	 * 支払い優先度を設定
+	 *
+	 * @param priority 支払い優先度
+	 */
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	/**
+	 * 支払い優先度を設定
+	 *
+	 * @param priority 支払い優先度
+	 * @return this
+	 */
+	public UpdateMoneyRequest withPriority(String priority) {
+		setPriority(priority);
+		return this;
+	}
+
+	/**
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高加算完了時 に実行されるGS2-Script
+	 */
+	public String getChargeWalletDoneTriggerScript() {
+		return chargeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param chargeWalletDoneTriggerScript ウォレット残高加算完了時 に実行されるGS2-Script
+	 */
+	public void setChargeWalletDoneTriggerScript(String chargeWalletDoneTriggerScript) {
+		this.chargeWalletDoneTriggerScript = chargeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高加算完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param chargeWalletDoneTriggerScript ウォレット残高加算完了時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public UpdateMoneyRequest withChargeWalletDoneTriggerScript(String chargeWalletDoneTriggerScript) {
+		setChargeWalletDoneTriggerScript(chargeWalletDoneTriggerScript);
+		return this;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高消費時 に実行されるGS2-Script
+	 */
+	public String getConsumeWalletTriggerScript() {
+		return consumeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletTriggerScript ウォレット残高消費時 に実行されるGS2-Script
+	 */
+	public void setConsumeWalletTriggerScript(String consumeWalletTriggerScript) {
+		this.consumeWalletTriggerScript = consumeWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletTriggerScript ウォレット残高消費時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public UpdateMoneyRequest withConsumeWalletTriggerScript(String consumeWalletTriggerScript) {
+		setConsumeWalletTriggerScript(consumeWalletTriggerScript);
+		return this;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット新規作成時 に実行されるGS2-Script
+	 */
+	public String getCreateWalletTriggerScript() {
+		return createWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletTriggerScript ウォレット新規作成時 に実行されるGS2-Script
+	 */
+	public void setCreateWalletTriggerScript(String createWalletTriggerScript) {
+		this.createWalletTriggerScript = createWalletTriggerScript;
+	}
+
+	/**
+	 * ウォレット新規作成時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param createWalletTriggerScript ウォレット新規作成時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public UpdateMoneyRequest withCreateWalletTriggerScript(String createWalletTriggerScript) {
+		setCreateWalletTriggerScript(createWalletTriggerScript);
+		return this;
+	}
+
+	/**
 	 * Apple のアプリケーションバンドルIDを取得
 	 *
 	 * @return Apple のアプリケーションバンドルID
@@ -221,6 +384,35 @@ public class UpdateMoneyRequest extends Gs2BasicRequest<UpdateMoneyRequest> {
 	 */
 	public UpdateMoneyRequest withAppleKey(String appleKey) {
 		setAppleKey(appleKey);
+		return this;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを取得
+	 *
+	 * @return ウォレット残高消費完了時 に実行されるGS2-Script
+	 */
+	public String getConsumeWalletDoneTriggerScript() {
+		return consumeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletDoneTriggerScript ウォレット残高消費完了時 に実行されるGS2-Script
+	 */
+	public void setConsumeWalletDoneTriggerScript(String consumeWalletDoneTriggerScript) {
+		this.consumeWalletDoneTriggerScript = consumeWalletDoneTriggerScript;
+	}
+
+	/**
+	 * ウォレット残高消費完了時 に実行されるGS2-Scriptを設定
+	 *
+	 * @param consumeWalletDoneTriggerScript ウォレット残高消費完了時 に実行されるGS2-Script
+	 * @return this
+	 */
+	public UpdateMoneyRequest withConsumeWalletDoneTriggerScript(String consumeWalletDoneTriggerScript) {
+		setConsumeWalletDoneTriggerScript(consumeWalletDoneTriggerScript);
 		return this;
 	}
 

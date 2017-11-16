@@ -65,7 +65,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public ChargeWalletResult chargeWallet(ChargeWalletRequest request) {
@@ -99,7 +101,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public ChargeWalletByUserResult chargeWalletByUser(ChargeWalletByUserRequest request) {
@@ -131,7 +135,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public ConsumeWalletResult consumeWallet(ConsumeWalletRequest request) {
@@ -171,7 +177,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public CreateItemResult createItem(CreateItemRequest request) {
@@ -226,7 +234,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public CreateMoneyResult createMoney(CreateMoneyRequest request) {
@@ -238,9 +248,15 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				.put("shareFree", request.getShareFree())
 				.put("description", request.getDescription());
 
-        if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
+        if(request.getChargeWalletTriggerScript() != null) body.put("chargeWalletTriggerScript", request.getChargeWalletTriggerScript());
         if(request.getCurrency() != null) body.put("currency", request.getCurrency());
+        if(request.getCreateWalletDoneTriggerScript() != null) body.put("createWalletDoneTriggerScript", request.getCreateWalletDoneTriggerScript());
+        if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
+        if(request.getChargeWalletDoneTriggerScript() != null) body.put("chargeWalletDoneTriggerScript", request.getChargeWalletDoneTriggerScript());
+        if(request.getConsumeWalletTriggerScript() != null) body.put("consumeWalletTriggerScript", request.getConsumeWalletTriggerScript());
+        if(request.getCreateWalletTriggerScript() != null) body.put("createWalletTriggerScript", request.getCreateWalletTriggerScript());
         if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
+        if(request.getConsumeWalletDoneTriggerScript() != null) body.put("consumeWalletDoneTriggerScript", request.getConsumeWalletDoneTriggerScript());
 		HttpPost post = createHttpPost(
 				Gs2Constant.ENDPOINT_HOST + "/money",
 				credential,
@@ -262,7 +278,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public CreatePlatformedItemResult createPlatformedItem(CreatePlatformedItemRequest request) {
@@ -291,6 +309,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 */
 
 	public void deleteItem(DeleteItemRequest request) {
@@ -317,6 +336,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 */
 
 	public void deleteMoney(DeleteMoneyRequest request) {
@@ -343,6 +363,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 */
 
 	public void deletePlatformedItem(DeletePlatformedItemRequest request) {
@@ -369,7 +390,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public DescribeItemResult describeItem(DescribeItemRequest request) {
@@ -402,7 +425,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public DescribeMoneyResult describeMoney(DescribeMoneyRequest request) {
@@ -435,7 +460,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public DescribePlatformedItemResult describePlatformedItem(DescribePlatformedItemRequest request) {
@@ -468,7 +495,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public DescribeReceiptResult describeReceipt(DescribeReceiptRequest request) {
@@ -503,7 +532,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public DescribeReceiptByUserAndSlotResult describeReceiptByUserAndSlot(DescribeReceiptByUserAndSlotRequest request) {
@@ -538,7 +569,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public DescribeWalletResult describeWallet(DescribeWalletRequest request) {
@@ -572,7 +605,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public GetItemResult getItem(GetItemRequest request) {
@@ -599,7 +634,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public GetMoneyResult getMoney(GetMoneyRequest request) {
@@ -626,7 +663,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public GetMoneyStatusResult getMoneyStatus(GetMoneyStatusRequest request) {
@@ -653,7 +692,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public GetPlatformedItemResult getPlatformedItem(GetPlatformedItemRequest request) {
@@ -684,7 +725,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public GetWalletResult getWallet(GetWalletRequest request) {
@@ -712,7 +755,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public GetWalletDetailResult getWalletDetail(GetWalletDetailRequest request) {
@@ -739,7 +784,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public UpdateItemResult updateItem(UpdateItemRequest request) {
@@ -766,18 +813,26 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public UpdateMoneyResult updateMoney(UpdateMoneyRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("priority", request.getPriority())
 				.put("useVerifyReceipt", request.getUseVerifyReceipt())
-				.put("description", request.getDescription());
+				.put("description", request.getDescription())
+				.put("priority", request.getPriority());
 
+        if(request.getChargeWalletTriggerScript() != null) body.put("chargeWalletTriggerScript", request.getChargeWalletTriggerScript());
+        if(request.getCreateWalletDoneTriggerScript() != null) body.put("createWalletDoneTriggerScript", request.getCreateWalletDoneTriggerScript());
         if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
+        if(request.getChargeWalletDoneTriggerScript() != null) body.put("chargeWalletDoneTriggerScript", request.getChargeWalletDoneTriggerScript());
+        if(request.getConsumeWalletTriggerScript() != null) body.put("consumeWalletTriggerScript", request.getConsumeWalletTriggerScript());
+        if(request.getCreateWalletTriggerScript() != null) body.put("createWalletTriggerScript", request.getCreateWalletTriggerScript());
         if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
+        if(request.getConsumeWalletDoneTriggerScript() != null) body.put("consumeWalletDoneTriggerScript", request.getConsumeWalletDoneTriggerScript());
 		HttpPut put = createHttpPut(
 				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "",
 				credential,
@@ -797,7 +852,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public UpdatePlatformedItemResult updatePlatformedItem(UpdatePlatformedItemRequest request) {
@@ -836,7 +893,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	 * <br>
 	 *
 	 * @param request リクエストパラメータ
+
 	 * @return 結果
+
 	 */
 
 	public VerifyResult verify(VerifyRequest request) {
