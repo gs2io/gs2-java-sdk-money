@@ -73,17 +73,20 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	public ChargeWalletResult chargeWallet(ChargeWalletRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("count", request.getCount())
-				.put("price", request.getPrice());
+				.put("price", request.getPrice())
+				.put("count", request.getCount());
 
         if(request.getTransactionId() != null) body.put("transactionId", request.getTransactionId());
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/charge",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null || request.getSlot().equals("") ? "null" : request.getSlot()) + "/charge",
 				credential,
 				ENDPOINT,
 				ChargeWalletRequest.Constant.MODULE,
 				ChargeWalletRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
         post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
 
@@ -109,17 +112,20 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	public ChargeWalletByUserResult chargeWalletByUser(ChargeWalletByUserRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("count", request.getCount())
-				.put("price", request.getPrice());
+				.put("price", request.getPrice())
+				.put("count", request.getCount());
 
         if(request.getTransactionId() != null) body.put("transactionId", request.getTransactionId());
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/" + (request.getUserId() == null ? "null" : request.getUserId()) + "/charge",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null || request.getSlot().equals("") ? "null" : request.getSlot()) + "/" + (request.getUserId() == null || request.getUserId().equals("") ? "null" : request.getUserId()) + "/charge",
 				credential,
 				ENDPOINT,
 				ChargeWalletByUserRequest.Constant.MODULE,
 				ChargeWalletByUserRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(post, ChargeWalletByUserResult.class);
@@ -148,12 +154,15 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
         if(request.getPaidOnly() != null) body.put("paidOnly", request.getPaidOnly());
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/consume",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null || request.getSlot().equals("") ? "null" : request.getSlot()) + "/consume",
 				credential,
 				ENDPOINT,
 				ConsumeWalletRequest.Constant.MODULE,
 				ConsumeWalletRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
         post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
 
@@ -185,16 +194,19 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	public CreateItemResult createItem(CreateItemRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("count", request.getCount())
-				.put("name", request.getName());
+				.put("name", request.getName())
+				.put("count", request.getCount());
 
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item",
 				credential,
 				ENDPOINT,
 				CreateItemRequest.Constant.MODULE,
 				CreateItemRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(post, CreateItemResult.class);
@@ -242,20 +254,20 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	public CreateMoneyResult createMoney(CreateMoneyRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("useVerifyReceipt", request.getUseVerifyReceipt())
 				.put("name", request.getName())
+				.put("description", request.getDescription())
 				.put("priority", request.getPriority())
 				.put("shareFree", request.getShareFree())
-				.put("description", request.getDescription());
+				.put("useVerifyReceipt", request.getUseVerifyReceipt());
 
-        if(request.getChargeWalletTriggerScript() != null) body.put("chargeWalletTriggerScript", request.getChargeWalletTriggerScript());
         if(request.getCurrency() != null) body.put("currency", request.getCurrency());
-        if(request.getCreateWalletDoneTriggerScript() != null) body.put("createWalletDoneTriggerScript", request.getCreateWalletDoneTriggerScript());
+        if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
         if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
+        if(request.getCreateWalletTriggerScript() != null) body.put("createWalletTriggerScript", request.getCreateWalletTriggerScript());
+        if(request.getCreateWalletDoneTriggerScript() != null) body.put("createWalletDoneTriggerScript", request.getCreateWalletDoneTriggerScript());
+        if(request.getChargeWalletTriggerScript() != null) body.put("chargeWalletTriggerScript", request.getChargeWalletTriggerScript());
         if(request.getChargeWalletDoneTriggerScript() != null) body.put("chargeWalletDoneTriggerScript", request.getChargeWalletDoneTriggerScript());
         if(request.getConsumeWalletTriggerScript() != null) body.put("consumeWalletTriggerScript", request.getConsumeWalletTriggerScript());
-        if(request.getCreateWalletTriggerScript() != null) body.put("createWalletTriggerScript", request.getCreateWalletTriggerScript());
-        if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
         if(request.getConsumeWalletDoneTriggerScript() != null) body.put("consumeWalletDoneTriggerScript", request.getConsumeWalletDoneTriggerScript());
 		HttpPost post = createHttpPost(
 				Gs2Constant.ENDPOINT_HOST + "/money",
@@ -264,6 +276,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				CreateMoneyRequest.Constant.MODULE,
 				CreateMoneyRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(post, CreateMoneyResult.class);
@@ -287,16 +302,19 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
 				.put("platform", request.getPlatform())
-				.put("price", request.getPrice())
-				.put("name", request.getName());
+				.put("name", request.getName())
+				.put("price", request.getPrice());
 
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "/platformedItem",
 				credential,
 				ENDPOINT,
 				CreatePlatformedItemRequest.Constant.MODULE,
 				CreatePlatformedItemRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(post, CreatePlatformedItemResult.class);
@@ -314,7 +332,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public void deleteItem(DeleteItemRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "";
 
 
 
@@ -324,6 +342,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DeleteItemRequest.Constant.MODULE,
 				DeleteItemRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            delete.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		doRequest(delete, null);
@@ -341,7 +362,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public void deleteMoney(DeleteMoneyRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "";
 
 
 
@@ -351,6 +372,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DeleteMoneyRequest.Constant.MODULE,
 				DeleteMoneyRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            delete.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		doRequest(delete, null);
@@ -368,7 +392,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public void deletePlatformedItem(DeletePlatformedItemRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null ? "null" : request.getPlatform()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null || request.getPlatform().equals("") ? "null" : request.getPlatform()) + "";
 
 
 
@@ -378,6 +402,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DeletePlatformedItemRequest.Constant.MODULE,
 				DeletePlatformedItemRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            delete.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		doRequest(delete, null);
@@ -397,7 +424,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public DescribeItemResult describeItem(DescribeItemRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item";
 
         List<NameValuePair> queryString = new ArrayList<>();
         if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
@@ -413,6 +440,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DescribeItemRequest.Constant.MODULE,
 				DescribeItemRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, DescribeItemResult.class);
@@ -448,6 +478,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DescribeMoneyRequest.Constant.MODULE,
 				DescribeMoneyRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, DescribeMoneyResult.class);
@@ -467,7 +500,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public DescribePlatformedItemResult describePlatformedItem(DescribePlatformedItemRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "/platformedItem";
 
         List<NameValuePair> queryString = new ArrayList<>();
         if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
@@ -483,6 +516,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DescribePlatformedItemRequest.Constant.MODULE,
 				DescribePlatformedItemRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, DescribePlatformedItemResult.class);
@@ -502,7 +538,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public DescribeReceiptResult describeReceipt(DescribeReceiptRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/receipt";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/receipt";
 
         List<NameValuePair> queryString = new ArrayList<>();
         if(request.getBegin() != null) queryString.add(new BasicNameValuePair("begin", String.valueOf(request.getBegin())));
@@ -520,6 +556,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DescribeReceiptRequest.Constant.MODULE,
 				DescribeReceiptRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, DescribeReceiptResult.class);
@@ -539,7 +578,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public DescribeReceiptByUserAndSlotResult describeReceiptByUserAndSlot(DescribeReceiptByUserAndSlotRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/receipt/" + (request.getUserId() == null ? "null" : request.getUserId()) + "/" + (request.getSlot() == null ? "null" : request.getSlot()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/receipt/" + (request.getUserId() == null || request.getUserId().equals("") ? "null" : request.getUserId()) + "/" + (request.getSlot() == null || request.getSlot().equals("") ? "null" : request.getSlot()) + "";
 
         List<NameValuePair> queryString = new ArrayList<>();
         if(request.getBegin() != null) queryString.add(new BasicNameValuePair("begin", String.valueOf(request.getBegin())));
@@ -557,6 +596,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DescribeReceiptByUserAndSlotRequest.Constant.MODULE,
 				DescribeReceiptByUserAndSlotRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, DescribeReceiptByUserAndSlotResult.class);
@@ -576,7 +618,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public DescribeWalletResult describeWallet(DescribeWalletRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/wallet";
 
         List<NameValuePair> queryString = new ArrayList<>();
         if(request.getPageToken() != null) queryString.add(new BasicNameValuePair("pageToken", String.valueOf(request.getPageToken())));
@@ -593,6 +635,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				DescribeWalletRequest.Constant.MODULE,
 				DescribeWalletRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, DescribeWalletResult.class);
@@ -612,7 +657,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public GetItemResult getItem(GetItemRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "";
 
 
 
@@ -622,6 +667,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				GetItemRequest.Constant.MODULE,
 				GetItemRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, GetItemResult.class);
@@ -641,7 +689,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public GetMoneyResult getMoney(GetMoneyRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "";
 
 
 
@@ -651,6 +699,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				GetMoneyRequest.Constant.MODULE,
 				GetMoneyRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, GetMoneyResult.class);
@@ -670,7 +721,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public GetMoneyStatusResult getMoneyStatus(GetMoneyStatusRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/status";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/status";
 
 
 
@@ -680,6 +731,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				GetMoneyStatusRequest.Constant.MODULE,
 				GetMoneyStatusRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, GetMoneyStatusResult.class);
@@ -699,7 +753,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public GetPlatformedItemResult getPlatformedItem(GetPlatformedItemRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null ? "null" : request.getPlatform()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null || request.getPlatform().equals("") ? "null" : request.getPlatform()) + "";
 
 
 
@@ -709,6 +763,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				GetPlatformedItemRequest.Constant.MODULE,
 				GetPlatformedItemRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, GetPlatformedItemResult.class);
@@ -732,7 +789,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public GetWalletResult getWallet(GetWalletRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null || request.getSlot().equals("") ? "null" : request.getSlot()) + "";
 
 
 
@@ -742,6 +799,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				GetWalletRequest.Constant.MODULE,
 				GetWalletRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
         get.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
 
@@ -762,7 +822,7 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 
 	public GetWalletDetailResult getWalletDetail(GetWalletDetailRequest request) {
 
-	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null ? "null" : request.getSlot()) + "/" + (request.getUserId() == null ? "null" : request.getUserId()) + "/detail";
+	    String url = Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/wallet/" + (request.getSlot() == null || request.getSlot().equals("") ? "null" : request.getSlot()) + "/" + (request.getUserId() == null || request.getUserId().equals("") ? "null" : request.getUserId()) + "/detail";
 
 
 
@@ -772,6 +832,9 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				ENDPOINT,
 				GetWalletDetailRequest.Constant.MODULE,
 				GetWalletDetailRequest.Constant.FUNCTION);
+        if(request.getRequestId() != null) {
+            get.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(get, GetWalletDetailResult.class);
@@ -795,12 +858,15 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				.put("count", request.getCount());
 
 		HttpPut put = createHttpPut(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "",
 				credential,
 				ENDPOINT,
 				UpdateItemRequest.Constant.MODULE,
 				UpdateItemRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            put.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(put, UpdateItemResult.class);
@@ -821,25 +887,28 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	public UpdateMoneyResult updateMoney(UpdateMoneyRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("useVerifyReceipt", request.getUseVerifyReceipt())
 				.put("description", request.getDescription())
-				.put("priority", request.getPriority());
+				.put("priority", request.getPriority())
+				.put("useVerifyReceipt", request.getUseVerifyReceipt());
 
-        if(request.getChargeWalletTriggerScript() != null) body.put("chargeWalletTriggerScript", request.getChargeWalletTriggerScript());
-        if(request.getCreateWalletDoneTriggerScript() != null) body.put("createWalletDoneTriggerScript", request.getCreateWalletDoneTriggerScript());
+        if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
         if(request.getGoogleKey() != null) body.put("googleKey", request.getGoogleKey());
+        if(request.getCreateWalletTriggerScript() != null) body.put("createWalletTriggerScript", request.getCreateWalletTriggerScript());
+        if(request.getCreateWalletDoneTriggerScript() != null) body.put("createWalletDoneTriggerScript", request.getCreateWalletDoneTriggerScript());
+        if(request.getChargeWalletTriggerScript() != null) body.put("chargeWalletTriggerScript", request.getChargeWalletTriggerScript());
         if(request.getChargeWalletDoneTriggerScript() != null) body.put("chargeWalletDoneTriggerScript", request.getChargeWalletDoneTriggerScript());
         if(request.getConsumeWalletTriggerScript() != null) body.put("consumeWalletTriggerScript", request.getConsumeWalletTriggerScript());
-        if(request.getCreateWalletTriggerScript() != null) body.put("createWalletTriggerScript", request.getCreateWalletTriggerScript());
-        if(request.getAppleKey() != null) body.put("appleKey", request.getAppleKey());
         if(request.getConsumeWalletDoneTriggerScript() != null) body.put("consumeWalletDoneTriggerScript", request.getConsumeWalletDoneTriggerScript());
 		HttpPut put = createHttpPut(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "",
 				credential,
 				ENDPOINT,
 				UpdateMoneyRequest.Constant.MODULE,
 				UpdateMoneyRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            put.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(put, UpdateMoneyResult.class);
@@ -860,16 +929,19 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 	public UpdatePlatformedItemResult updatePlatformedItem(UpdatePlatformedItemRequest request) {
 
 		ObjectNode body = JsonNodeFactory.instance.objectNode()
-				.put("price", request.getPrice())
-				.put("name", request.getName());
+				.put("name", request.getName())
+				.put("price", request.getPrice());
 
 		HttpPut put = createHttpPut(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null ? "null" : request.getPlatform()) + "",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/item/" + (request.getItemName() == null || request.getItemName().equals("") ? "null" : request.getItemName()) + "/platformedItem/" + (request.getPlatform() == null || request.getPlatform().equals("") ? "null" : request.getPlatform()) + "",
 				credential,
 				ENDPOINT,
 				UpdatePlatformedItemRequest.Constant.MODULE,
 				UpdatePlatformedItemRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            put.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
 
 		return doRequest(put, UpdatePlatformedItemResult.class);
@@ -905,12 +977,15 @@ public class Gs2MoneyClient extends AbstractGs2Client<Gs2MoneyClient> {
 				.put("receipt", request.getReceipt());
 
 		HttpPost post = createHttpPost(
-				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null ? "null" : request.getMoneyName()) + "/verify",
+				Gs2Constant.ENDPOINT_HOST + "/money/" + (request.getMoneyName() == null || request.getMoneyName().equals("") ? "null" : request.getMoneyName()) + "/verify",
 				credential,
 				ENDPOINT,
 				VerifyRequest.Constant.MODULE,
 				VerifyRequest.Constant.FUNCTION,
 				body.toString());
+        if(request.getRequestId() != null) {
+            post.setHeader("X-GS2-REQUEST-ID", request.getRequestId());
+        }
 
         post.setHeader("X-GS2-ACCESS-TOKEN", request.getAccessToken());
 
