@@ -25,49 +25,28 @@ import io.gs2.money.model.*;
  * @author Game Server Services, Inc.
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class DescribeReceiptByUserAndSlotResult {
+public class ConsumeWalletByUserIdResult {
 
-	/** 次のページを読み込むためのトークン */
-	private String nextPageToken;
-
-	/** レシート */
-	private List<Receipt> items;
+	/** ウォレット */
+	private Summary item;
 
 
 	/**
-	 * 次のページを読み込むためのトークンを取得
+	 * ウォレットを取得
 	 *
-	 * @return 次のページを読み込むためのトークン
+	 * @return ウォレット
 	 */
-	public String getNextPageToken() {
-		return nextPageToken;
+	public Summary getItem() {
+		return item;
 	}
 
 	/**
-	 * 次のページを読み込むためのトークンを設定
+	 * ウォレットを設定
 	 *
-	 * @param nextPageToken 次のページを読み込むためのトークン
+	 * @param item ウォレット
 	 */
-	public void setNextPageToken(String nextPageToken) {
-		this.nextPageToken = nextPageToken;
-	}
-
-	/**
-	 * レシートを取得
-	 *
-	 * @return レシート
-	 */
-	public List<Receipt> getItems() {
-		return items;
-	}
-
-	/**
-	 * レシートを設定
-	 *
-	 * @param items レシート
-	 */
-	public void setItems(List<Receipt> items) {
-		this.items = items;
+	public void setItem(Summary item) {
+		this.item = item;
 	}
 
 }

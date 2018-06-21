@@ -34,14 +34,14 @@ public class DescribeWalletRequest extends Gs2BasicRequest<DescribeWalletRequest
 	/** 仮想通貨の名前 */
 	private String moneyName;
 
+	/** ユーザIDで対象のウォレットを絞り込む場合 */
+	private String userId;
+
 	/** データの取得を開始する位置を指定するトークン */
 	private String pageToken;
 
 	/** データの取得件数 */
 	private Integer limit;
-
-	/** ユーザIDで対象のウォレットを絞り込む場合 */
-	private String userId;
 
 
 	/**
@@ -70,6 +70,35 @@ public class DescribeWalletRequest extends Gs2BasicRequest<DescribeWalletRequest
 	 */
 	public DescribeWalletRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
+		return this;
+	}
+
+	/**
+	 * ユーザIDで対象のウォレットを絞り込む場合を取得
+	 *
+	 * @return ユーザIDで対象のウォレットを絞り込む場合
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * ユーザIDで対象のウォレットを絞り込む場合を設定
+	 *
+	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * ユーザIDで対象のウォレットを絞り込む場合を設定
+	 *
+	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
+	 * @return this
+	 */
+	public DescribeWalletRequest withUserId(String userId) {
+		setUserId(userId);
 		return this;
 	}
 
@@ -128,35 +157,6 @@ public class DescribeWalletRequest extends Gs2BasicRequest<DescribeWalletRequest
 	 */
 	public DescribeWalletRequest withLimit(Integer limit) {
 		setLimit(limit);
-		return this;
-	}
-
-	/**
-	 * ユーザIDで対象のウォレットを絞り込む場合を取得
-	 *
-	 * @return ユーザIDで対象のウォレットを絞り込む場合
-	 */
-	public String getUserId() {
-		return userId;
-	}
-
-	/**
-	 * ユーザIDで対象のウォレットを絞り込む場合を設定
-	 *
-	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * ユーザIDで対象のウォレットを絞り込む場合を設定
-	 *
-	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
-	 * @return this
-	 */
-	public DescribeWalletRequest withUserId(String userId) {
-		setUserId(userId);
 		return this;
 	}
 

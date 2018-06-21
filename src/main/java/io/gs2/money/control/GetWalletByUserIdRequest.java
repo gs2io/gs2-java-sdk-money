@@ -25,20 +25,20 @@ import io.gs2.control.Gs2BasicRequest;
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class CreateItemRequest extends Gs2BasicRequest<CreateItemRequest> {
+public class GetWalletByUserIdRequest extends Gs2BasicRequest<GetWalletByUserIdRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "CreateItem";
+		public static final String FUNCTION = "GetWalletByUserId";
 	}
 
 	/** 仮想通貨の名前 */
 	private String moneyName;
 
-	/** 商品名 */
-	private String name;
+	/** ウォレットのスロット番号 */
+	private Integer slot;
 
-	/** 付与する仮想通貨の数 */
-	private Integer count;
+	/** ユーザID */
+	private String userId;
 
 
 	/**
@@ -65,66 +65,66 @@ public class CreateItemRequest extends Gs2BasicRequest<CreateItemRequest> {
 	 * @param moneyName 仮想通貨の名前
 	 * @return this
 	 */
-	public CreateItemRequest withMoneyName(String moneyName) {
+	public GetWalletByUserIdRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
 		return this;
 	}
 
 	/**
-	 * 商品名を取得
+	 * ウォレットのスロット番号を取得
 	 *
-	 * @return 商品名
+	 * @return ウォレットのスロット番号
 	 */
-	public String getName() {
-		return name;
+	public Integer getSlot() {
+		return slot;
 	}
 
 	/**
-	 * 商品名を設定
+	 * ウォレットのスロット番号を設定
 	 *
-	 * @param name 商品名
+	 * @param slot ウォレットのスロット番号
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setSlot(Integer slot) {
+		this.slot = slot;
 	}
 
 	/**
-	 * 商品名を設定
+	 * ウォレットのスロット番号を設定
 	 *
-	 * @param name 商品名
+	 * @param slot ウォレットのスロット番号
 	 * @return this
 	 */
-	public CreateItemRequest withName(String name) {
-		setName(name);
+	public GetWalletByUserIdRequest withSlot(Integer slot) {
+		setSlot(slot);
 		return this;
 	}
 
 	/**
-	 * 付与する仮想通貨の数を取得
+	 * ユーザIDを取得
 	 *
-	 * @return 付与する仮想通貨の数
+	 * @return ユーザID
 	 */
-	public Integer getCount() {
-		return count;
+	public String getUserId() {
+		return userId;
 	}
 
 	/**
-	 * 付与する仮想通貨の数を設定
+	 * ユーザIDを設定
 	 *
-	 * @param count 付与する仮想通貨の数
+	 * @param userId ユーザID
 	 */
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	/**
-	 * 付与する仮想通貨の数を設定
+	 * ユーザIDを設定
 	 *
-	 * @param count 付与する仮想通貨の数
+	 * @param userId ユーザID
 	 * @return this
 	 */
-	public CreateItemRequest withCount(Integer count) {
-		setCount(count);
+	public GetWalletByUserIdRequest withUserId(String userId) {
+		setUserId(userId);
 		return this;
 	}
 

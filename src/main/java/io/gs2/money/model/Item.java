@@ -30,8 +30,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Item implements Serializable {
 
-	/** 商品ID */
+	/** 商品GRN */
 	private String itemId;
+
+	/** 仮想通貨GRN */
+	private String moneyId;
+
+	/** 商品名 */
+	private String name;
 
 	/** 付与する仮想通貨の数 */
 	private Integer count;
@@ -39,32 +45,62 @@ public class Item implements Serializable {
 	/** 作成日時(エポック秒) */
 	private Integer createAt;
 
-	/** 仮想通貨ID */
-	private String moneyId;
-
-	/** 商品名 */
-	private String name;
-
 	/** 最終更新日時(エポック秒) */
 	private Integer updateAt;
 
 
 	/**
-	 * 商品IDを取得
+	 * 商品GRNを取得
 	 *
-	 * @return 商品ID
+	 * @return 商品GRN
 	 */
 	public String getItemId() {
 		return itemId;
 	}
 
 	/**
-	 * 商品IDを設定
+	 * 商品GRNを設定
 	 *
-	 * @param itemId 商品ID
+	 * @param itemId 商品GRN
 	 */
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
+	}
+
+	/**
+	 * 仮想通貨GRNを取得
+	 *
+	 * @return 仮想通貨GRN
+	 */
+	public String getMoneyId() {
+		return moneyId;
+	}
+
+	/**
+	 * 仮想通貨GRNを設定
+	 *
+	 * @param moneyId 仮想通貨GRN
+	 */
+	public void setMoneyId(String moneyId) {
+		this.moneyId = moneyId;
+	}
+
+	/**
+	 * 商品名を取得
+	 *
+	 * @return 商品名
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 商品名を設定
+	 *
+	 * @param name 商品名
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -101,42 +137,6 @@ public class Item implements Serializable {
 	 */
 	public void setCreateAt(Integer createAt) {
 		this.createAt = createAt;
-	}
-
-	/**
-	 * 仮想通貨IDを取得
-	 *
-	 * @return 仮想通貨ID
-	 */
-	public String getMoneyId() {
-		return moneyId;
-	}
-
-	/**
-	 * 仮想通貨IDを設定
-	 *
-	 * @param moneyId 仮想通貨ID
-	 */
-	public void setMoneyId(String moneyId) {
-		this.moneyId = moneyId;
-	}
-
-	/**
-	 * 商品名を取得
-	 *
-	 * @return 商品名
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 商品名を設定
-	 *
-	 * @param name 商品名
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**

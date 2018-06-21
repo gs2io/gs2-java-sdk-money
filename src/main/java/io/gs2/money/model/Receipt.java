@@ -30,33 +30,51 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Receipt implements Serializable {
 
-	/** スロット番号 */
-	private Integer slot;
-
-	/** 用途 */
-	private Integer use;
-
-	/** 金額 */
-	private Double price;
-
 	/** ユーザID */
 	private String userId;
 
-	/** 無償仮想通貨 */
-	private Integer free;
-
-	/** 決済日時(エポック秒) */
-	private Integer createAt;
-
-	/** 有償仮想通貨 */
-	private Integer paid;
-
-	/** 総数 */
-	private Integer total;
+	/** スロット番号 */
+	private Integer slot;
 
 	/** 種類 */
 	private String type;
 
+	/** 金額 */
+	private Double price;
+
+	/** 有償仮想通貨 */
+	private Integer paid;
+
+	/** 無償仮想通貨 */
+	private Integer free;
+
+	/** 総数 */
+	private Integer total;
+
+	/** 用途 */
+	private Integer use;
+
+	/** 決済日時(エポック秒) */
+	private Integer createAt;
+
+
+	/**
+	 * ユーザIDを取得
+	 *
+	 * @return ユーザID
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * ユーザIDを設定
+	 *
+	 * @param userId ユーザID
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * スロット番号を取得
@@ -77,21 +95,21 @@ public class Receipt implements Serializable {
 	}
 
 	/**
-	 * 用途を取得
+	 * 種類を取得
 	 *
-	 * @return 用途
+	 * @return 種類
 	 */
-	public Integer getUse() {
-		return use;
+	public String getType() {
+		return type;
 	}
 
 	/**
-	 * 用途を設定
+	 * 種類を設定
 	 *
-	 * @param use 用途
+	 * @param type 種類
 	 */
-	public void setUse(Integer use) {
-		this.use = use;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	/**
@@ -113,21 +131,21 @@ public class Receipt implements Serializable {
 	}
 
 	/**
-	 * ユーザIDを取得
+	 * 有償仮想通貨を取得
 	 *
-	 * @return ユーザID
+	 * @return 有償仮想通貨
 	 */
-	public String getUserId() {
-		return userId;
+	public Integer getPaid() {
+		return paid;
 	}
 
 	/**
-	 * ユーザIDを設定
+	 * 有償仮想通貨を設定
 	 *
-	 * @param userId ユーザID
+	 * @param paid 有償仮想通貨
 	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPaid(Integer paid) {
+		this.paid = paid;
 	}
 
 	/**
@@ -149,42 +167,6 @@ public class Receipt implements Serializable {
 	}
 
 	/**
-	 * 決済日時(エポック秒)を取得
-	 *
-	 * @return 決済日時(エポック秒)
-	 */
-	public Integer getCreateAt() {
-		return createAt;
-	}
-
-	/**
-	 * 決済日時(エポック秒)を設定
-	 *
-	 * @param createAt 決済日時(エポック秒)
-	 */
-	public void setCreateAt(Integer createAt) {
-		this.createAt = createAt;
-	}
-
-	/**
-	 * 有償仮想通貨を取得
-	 *
-	 * @return 有償仮想通貨
-	 */
-	public Integer getPaid() {
-		return paid;
-	}
-
-	/**
-	 * 有償仮想通貨を設定
-	 *
-	 * @param paid 有償仮想通貨
-	 */
-	public void setPaid(Integer paid) {
-		this.paid = paid;
-	}
-
-	/**
 	 * 総数を取得
 	 *
 	 * @return 総数
@@ -203,21 +185,39 @@ public class Receipt implements Serializable {
 	}
 
 	/**
-	 * 種類を取得
+	 * 用途を取得
 	 *
-	 * @return 種類
+	 * @return 用途
 	 */
-	public String getType() {
-		return type;
+	public Integer getUse() {
+		return use;
 	}
 
 	/**
-	 * 種類を設定
+	 * 用途を設定
 	 *
-	 * @param type 種類
+	 * @param use 用途
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setUse(Integer use) {
+		this.use = use;
+	}
+
+	/**
+	 * 決済日時(エポック秒)を取得
+	 *
+	 * @return 決済日時(エポック秒)
+	 */
+	public Integer getCreateAt() {
+		return createAt;
+	}
+
+	/**
+	 * 決済日時(エポック秒)を設定
+	 *
+	 * @param createAt 決済日時(エポック秒)
+	 */
+	public void setCreateAt(Integer createAt) {
+		this.createAt = createAt;
 	}
 
 }

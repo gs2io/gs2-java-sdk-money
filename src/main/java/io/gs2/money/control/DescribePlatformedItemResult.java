@@ -27,30 +27,12 @@ import io.gs2.money.model.*;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class DescribePlatformedItemResult {
 
-	/** 次のページを読み込むためのトークン */
-	private String nextPageToken;
-
 	/** プラットフォーム個別商品 */
 	private List<PlatformedItem> items;
 
+	/** 次のページを読み込むためのトークン */
+	private String nextPageToken;
 
-	/**
-	 * 次のページを読み込むためのトークンを取得
-	 *
-	 * @return 次のページを読み込むためのトークン
-	 */
-	public String getNextPageToken() {
-		return nextPageToken;
-	}
-
-	/**
-	 * 次のページを読み込むためのトークンを設定
-	 *
-	 * @param nextPageToken 次のページを読み込むためのトークン
-	 */
-	public void setNextPageToken(String nextPageToken) {
-		this.nextPageToken = nextPageToken;
-	}
 
 	/**
 	 * プラットフォーム個別商品を取得
@@ -68,6 +50,24 @@ public class DescribePlatformedItemResult {
 	 */
 	public void setItems(List<PlatformedItem> items) {
 		this.items = items;
+	}
+
+	/**
+	 * 次のページを読み込むためのトークンを取得
+	 *
+	 * @return 次のページを読み込むためのトークン
+	 */
+	public String getNextPageToken() {
+		return nextPageToken;
+	}
+
+	/**
+	 * 次のページを読み込むためのトークンを設定
+	 *
+	 * @param nextPageToken 次のページを読み込むためのトークン
+	 */
+	public void setNextPageToken(String nextPageToken) {
+		this.nextPageToken = nextPageToken;
 	}
 
 }

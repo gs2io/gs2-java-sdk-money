@@ -37,11 +37,11 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	/** 取得するウォレットのスロット番号 */
 	private Integer slot;
 
-	/** 仮想通貨付与量 */
-	private Integer count;
-
 	/** 支払金額 */
 	private Double price;
+
+	/** 仮想通貨付与量 */
+	private Integer count;
 
 	/** トランザクションID */
 	private String transactionId;
@@ -106,35 +106,6 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	}
 
 	/**
-	 * 仮想通貨付与量を取得
-	 *
-	 * @return 仮想通貨付与量
-	 */
-	public Integer getCount() {
-		return count;
-	}
-
-	/**
-	 * 仮想通貨付与量を設定
-	 *
-	 * @param count 仮想通貨付与量
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	/**
-	 * 仮想通貨付与量を設定
-	 *
-	 * @param count 仮想通貨付与量
-	 * @return this
-	 */
-	public ChargeWalletRequest withCount(Integer count) {
-		setCount(count);
-		return this;
-	}
-
-	/**
 	 * 支払金額を取得
 	 *
 	 * @return 支払金額
@@ -160,6 +131,35 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	 */
 	public ChargeWalletRequest withPrice(Double price) {
 		setPrice(price);
+		return this;
+	}
+
+	/**
+	 * 仮想通貨付与量を取得
+	 *
+	 * @return 仮想通貨付与量
+	 */
+	public Integer getCount() {
+		return count;
+	}
+
+	/**
+	 * 仮想通貨付与量を設定
+	 *
+	 * @param count 仮想通貨付与量
+	 */
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	/**
+	 * 仮想通貨付与量を設定
+	 *
+	 * @param count 仮想通貨付与量
+	 * @return this
+	 */
+	public ChargeWalletRequest withCount(Integer count) {
+		setCount(count);
 		return this;
 	}
 

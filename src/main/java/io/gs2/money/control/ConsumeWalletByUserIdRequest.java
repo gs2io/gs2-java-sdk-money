@@ -19,16 +19,16 @@ package io.gs2.money.control;
 import org.json.JSONObject;
 import java.util.List;
 import io.gs2.money.Gs2Money;
-import io.gs2.control.Gs2UserRequest;
+import io.gs2.control.Gs2BasicRequest;
 
 /**
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
+public class ConsumeWalletByUserIdRequest extends Gs2BasicRequest<ConsumeWalletByUserIdRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "ConsumeWallet";
+		public static final String FUNCTION = "ConsumeWalletByUserId";
 	}
 
 	/** 取得する仮想通貨の名前 */
@@ -36,6 +36,9 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 
 	/** 取得するウォレットのスロット番号 */
 	private Integer slot;
+
+	/** ウォレットのユーザID */
+	private String userId;
 
 	/** 仮想通貨消費量 */
 	private Integer count;
@@ -71,7 +74,7 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	 * @param moneyName 取得する仮想通貨の名前
 	 * @return this
 	 */
-	public ConsumeWalletRequest withMoneyName(String moneyName) {
+	public ConsumeWalletByUserIdRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
 		return this;
 	}
@@ -100,8 +103,37 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	 * @param slot 取得するウォレットのスロット番号
 	 * @return this
 	 */
-	public ConsumeWalletRequest withSlot(Integer slot) {
+	public ConsumeWalletByUserIdRequest withSlot(Integer slot) {
 		setSlot(slot);
+		return this;
+	}
+
+	/**
+	 * ウォレットのユーザIDを取得
+	 *
+	 * @return ウォレットのユーザID
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * ウォレットのユーザIDを設定
+	 *
+	 * @param userId ウォレットのユーザID
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * ウォレットのユーザIDを設定
+	 *
+	 * @param userId ウォレットのユーザID
+	 * @return this
+	 */
+	public ConsumeWalletByUserIdRequest withUserId(String userId) {
+		setUserId(userId);
 		return this;
 	}
 
@@ -129,7 +161,7 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	 * @param count 仮想通貨消費量
 	 * @return this
 	 */
-	public ConsumeWalletRequest withCount(Integer count) {
+	public ConsumeWalletByUserIdRequest withCount(Integer count) {
 		setCount(count);
 		return this;
 	}
@@ -158,7 +190,7 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	 * @param use 用途ID
 	 * @return this
 	 */
-	public ConsumeWalletRequest withUse(Integer use) {
+	public ConsumeWalletByUserIdRequest withUse(Integer use) {
 		setUse(use);
 		return this;
 	}
@@ -187,7 +219,7 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	 * @param paidOnly 有償仮想通貨のみ消費対象としたい場合に true を指定します
 	 * @return this
 	 */
-	public ConsumeWalletRequest withPaidOnly(Boolean paidOnly) {
+	public ConsumeWalletByUserIdRequest withPaidOnly(Boolean paidOnly) {
 		setPaidOnly(paidOnly);
 		return this;
 	}

@@ -30,23 +30,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class PlatformedItem implements Serializable {
 
-	/** 商品ID */
+	/** プラットフォーム個別商品GRN */
+	private String platformedItemId;
+
+	/** 仮想通貨GRN */
+	private String moneyId;
+
+	/** 商品GRN */
 	private String itemId;
 
-	/** 仮想通貨ID */
-	private String moneyId;
+	/** 販売プラットフォーム */
+	private String platform;
 
 	/** アプリ内課金ID */
 	private String name;
 
-	/** プラットフォーム個別商品ID */
-	private String platformedItemId;
-
 	/** 販売価格 */
 	private Double price;
-
-	/** 販売プラットフォーム */
-	private String platform;
 
 	/** 作成日時(エポック秒) */
 	private Integer createAt;
@@ -56,39 +56,75 @@ public class PlatformedItem implements Serializable {
 
 
 	/**
-	 * 商品IDを取得
+	 * プラットフォーム個別商品GRNを取得
 	 *
-	 * @return 商品ID
+	 * @return プラットフォーム個別商品GRN
 	 */
-	public String getItemId() {
-		return itemId;
+	public String getPlatformedItemId() {
+		return platformedItemId;
 	}
 
 	/**
-	 * 商品IDを設定
+	 * プラットフォーム個別商品GRNを設定
 	 *
-	 * @param itemId 商品ID
+	 * @param platformedItemId プラットフォーム個別商品GRN
 	 */
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
+	public void setPlatformedItemId(String platformedItemId) {
+		this.platformedItemId = platformedItemId;
 	}
 
 	/**
-	 * 仮想通貨IDを取得
+	 * 仮想通貨GRNを取得
 	 *
-	 * @return 仮想通貨ID
+	 * @return 仮想通貨GRN
 	 */
 	public String getMoneyId() {
 		return moneyId;
 	}
 
 	/**
-	 * 仮想通貨IDを設定
+	 * 仮想通貨GRNを設定
 	 *
-	 * @param moneyId 仮想通貨ID
+	 * @param moneyId 仮想通貨GRN
 	 */
 	public void setMoneyId(String moneyId) {
 		this.moneyId = moneyId;
+	}
+
+	/**
+	 * 商品GRNを取得
+	 *
+	 * @return 商品GRN
+	 */
+	public String getItemId() {
+		return itemId;
+	}
+
+	/**
+	 * 商品GRNを設定
+	 *
+	 * @param itemId 商品GRN
+	 */
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
+
+	/**
+	 * 販売プラットフォームを取得
+	 *
+	 * @return 販売プラットフォーム
+	 */
+	public String getPlatform() {
+		return platform;
+	}
+
+	/**
+	 * 販売プラットフォームを設定
+	 *
+	 * @param platform 販売プラットフォーム
+	 */
+	public void setPlatform(String platform) {
+		this.platform = platform;
 	}
 
 	/**
@@ -110,24 +146,6 @@ public class PlatformedItem implements Serializable {
 	}
 
 	/**
-	 * プラットフォーム個別商品IDを取得
-	 *
-	 * @return プラットフォーム個別商品ID
-	 */
-	public String getPlatformedItemId() {
-		return platformedItemId;
-	}
-
-	/**
-	 * プラットフォーム個別商品IDを設定
-	 *
-	 * @param platformedItemId プラットフォーム個別商品ID
-	 */
-	public void setPlatformedItemId(String platformedItemId) {
-		this.platformedItemId = platformedItemId;
-	}
-
-	/**
 	 * 販売価格を取得
 	 *
 	 * @return 販売価格
@@ -143,24 +161,6 @@ public class PlatformedItem implements Serializable {
 	 */
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-
-	/**
-	 * 販売プラットフォームを取得
-	 *
-	 * @return 販売プラットフォーム
-	 */
-	public String getPlatform() {
-		return platform;
-	}
-
-	/**
-	 * 販売プラットフォームを設定
-	 *
-	 * @param platform 販売プラットフォーム
-	 */
-	public void setPlatform(String platform) {
-		this.platform = platform;
 	}
 
 	/**

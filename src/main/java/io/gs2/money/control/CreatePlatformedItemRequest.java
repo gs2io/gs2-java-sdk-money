@@ -40,11 +40,11 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	/** 販売プラットフォーム */
 	private String platform;
 
-	/** 販売価格 */
-	private Double price;
-
 	/** アプリ内課金ID */
 	private String name;
+
+	/** 販売価格 */
+	private Double price;
 
 
 	/**
@@ -135,35 +135,6 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	}
 
 	/**
-	 * 販売価格を取得
-	 *
-	 * @return 販売価格
-	 */
-	public Double getPrice() {
-		return price;
-	}
-
-	/**
-	 * 販売価格を設定
-	 *
-	 * @param price 販売価格
-	 */
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	/**
-	 * 販売価格を設定
-	 *
-	 * @param price 販売価格
-	 * @return this
-	 */
-	public CreatePlatformedItemRequest withPrice(Double price) {
-		setPrice(price);
-		return this;
-	}
-
-	/**
 	 * アプリ内課金IDを取得
 	 *
 	 * @return アプリ内課金ID
@@ -189,6 +160,35 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	 */
 	public CreatePlatformedItemRequest withName(String name) {
 		setName(name);
+		return this;
+	}
+
+	/**
+	 * 販売価格を取得
+	 *
+	 * @return 販売価格
+	 */
+	public Double getPrice() {
+		return price;
+	}
+
+	/**
+	 * 販売価格を設定
+	 *
+	 * @param price 販売価格
+	 */
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	/**
+	 * 販売価格を設定
+	 *
+	 * @param price 販売価格
+	 * @return this
+	 */
+	public CreatePlatformedItemRequest withPrice(Double price) {
+		setPrice(price);
 		return this;
 	}
 
