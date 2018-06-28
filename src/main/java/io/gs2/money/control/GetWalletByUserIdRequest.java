@@ -25,20 +25,20 @@ import io.gs2.control.Gs2BasicRequest;
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class GetPlatformedItemRequest extends Gs2BasicRequest<GetPlatformedItemRequest> {
+public class GetWalletByUserIdRequest extends Gs2BasicRequest<GetWalletByUserIdRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "GetPlatformedItem";
+		public static final String FUNCTION = "GetWalletByUserId";
 	}
 
 	/** 課金通貨の名前 */
 	private String moneyName;
 
-	/** 商品の名前 */
-	private String itemName;
+	/** ウォレットのスロット番号 */
+	private Integer slot;
 
-	/** プラットフォームの名前 */
-	private String platform;
+	/** ユーザID */
+	private String userId;
 
 
 	/**
@@ -65,66 +65,66 @@ public class GetPlatformedItemRequest extends Gs2BasicRequest<GetPlatformedItemR
 	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
-	public GetPlatformedItemRequest withMoneyName(String moneyName) {
+	public GetWalletByUserIdRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
 		return this;
 	}
 
 	/**
-	 * 商品の名前を取得
+	 * ウォレットのスロット番号を取得
 	 *
-	 * @return 商品の名前
+	 * @return ウォレットのスロット番号
 	 */
-	public String getItemName() {
-		return itemName;
+	public Integer getSlot() {
+		return slot;
 	}
 
 	/**
-	 * 商品の名前を設定
+	 * ウォレットのスロット番号を設定
 	 *
-	 * @param itemName 商品の名前
+	 * @param slot ウォレットのスロット番号
 	 */
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setSlot(Integer slot) {
+		this.slot = slot;
 	}
 
 	/**
-	 * 商品の名前を設定
+	 * ウォレットのスロット番号を設定
 	 *
-	 * @param itemName 商品の名前
+	 * @param slot ウォレットのスロット番号
 	 * @return this
 	 */
-	public GetPlatformedItemRequest withItemName(String itemName) {
-		setItemName(itemName);
+	public GetWalletByUserIdRequest withSlot(Integer slot) {
+		setSlot(slot);
 		return this;
 	}
 
 	/**
-	 * プラットフォームの名前を取得
+	 * ユーザIDを取得
 	 *
-	 * @return プラットフォームの名前
+	 * @return ユーザID
 	 */
-	public String getPlatform() {
-		return platform;
+	public String getUserId() {
+		return userId;
 	}
 
 	/**
-	 * プラットフォームの名前を設定
+	 * ユーザIDを設定
 	 *
-	 * @param platform プラットフォームの名前
+	 * @param userId ユーザID
 	 */
-	public void setPlatform(String platform) {
-		this.platform = platform;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	/**
-	 * プラットフォームの名前を設定
+	 * ユーザIDを設定
 	 *
-	 * @param platform プラットフォームの名前
+	 * @param userId ユーザID
 	 * @return this
 	 */
-	public GetPlatformedItemRequest withPlatform(String platform) {
-		setPlatform(platform);
+	public GetWalletByUserIdRequest withUserId(String userId) {
+		setUserId(userId);
 		return this;
 	}
 

@@ -31,8 +31,11 @@ public class DescribeWalletRequest extends Gs2BasicRequest<DescribeWalletRequest
 		public static final String FUNCTION = "DescribeWallet";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
+
+	/** ユーザIDで対象のウォレットを絞り込む場合 */
+	private String userId;
 
 	/** データの取得を開始する位置を指定するトークン */
 	private String pageToken;
@@ -40,36 +43,62 @@ public class DescribeWalletRequest extends Gs2BasicRequest<DescribeWalletRequest
 	/** データの取得件数 */
 	private Integer limit;
 
-	/** ユーザIDで対象のウォレットを絞り込む場合 */
-	private String userId;
-
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
 	public DescribeWalletRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
+		return this;
+	}
+
+	/**
+	 * ユーザIDで対象のウォレットを絞り込む場合を取得
+	 *
+	 * @return ユーザIDで対象のウォレットを絞り込む場合
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * ユーザIDで対象のウォレットを絞り込む場合を設定
+	 *
+	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * ユーザIDで対象のウォレットを絞り込む場合を設定
+	 *
+	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
+	 * @return this
+	 */
+	public DescribeWalletRequest withUserId(String userId) {
+		setUserId(userId);
 		return this;
 	}
 
@@ -128,35 +157,6 @@ public class DescribeWalletRequest extends Gs2BasicRequest<DescribeWalletRequest
 	 */
 	public DescribeWalletRequest withLimit(Integer limit) {
 		setLimit(limit);
-		return this;
-	}
-
-	/**
-	 * ユーザIDで対象のウォレットを絞り込む場合を取得
-	 *
-	 * @return ユーザIDで対象のウォレットを絞り込む場合
-	 */
-	public String getUserId() {
-		return userId;
-	}
-
-	/**
-	 * ユーザIDで対象のウォレットを絞り込む場合を設定
-	 *
-	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * ユーザIDで対象のウォレットを絞り込む場合を設定
-	 *
-	 * @param userId ユーザIDで対象のウォレットを絞り込む場合
-	 * @return this
-	 */
-	public DescribeWalletRequest withUserId(String userId) {
-		setUserId(userId);
 		return this;
 	}
 

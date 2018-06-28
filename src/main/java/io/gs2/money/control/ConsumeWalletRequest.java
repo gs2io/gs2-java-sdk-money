@@ -31,44 +31,44 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 		public static final String FUNCTION = "ConsumeWallet";
 	}
 
-	/** 取得する仮想通貨の名前 */
+	/** 取得する課金通貨の名前 */
 	private String moneyName;
 
 	/** 取得するウォレットのスロット番号 */
 	private Integer slot;
 
-	/** 仮想通貨消費量 */
+	/** 課金通貨消費量 */
 	private Integer count;
-
-	/** 有償仮想通貨のみ消費対象としたい場合に true を指定します */
-	private Boolean paidOnly;
 
 	/** 用途ID */
 	private Integer use;
 
+	/** 有償課金通貨のみ消費対象としたい場合に true を指定します */
+	private Boolean paidOnly;
+
 
 	/**
-	 * 取得する仮想通貨の名前を取得
+	 * 取得する課金通貨の名前を取得
 	 *
-	 * @return 取得する仮想通貨の名前
+	 * @return 取得する課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 取得する仮想通貨の名前を設定
+	 * 取得する課金通貨の名前を設定
 	 *
-	 * @param moneyName 取得する仮想通貨の名前
+	 * @param moneyName 取得する課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 取得する仮想通貨の名前を設定
+	 * 取得する課金通貨の名前を設定
 	 *
-	 * @param moneyName 取得する仮想通貨の名前
+	 * @param moneyName 取得する課金通貨の名前
 	 * @return this
 	 */
 	public ConsumeWalletRequest withMoneyName(String moneyName) {
@@ -106,60 +106,31 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	}
 
 	/**
-	 * 仮想通貨消費量を取得
+	 * 課金通貨消費量を取得
 	 *
-	 * @return 仮想通貨消費量
+	 * @return 課金通貨消費量
 	 */
 	public Integer getCount() {
 		return count;
 	}
 
 	/**
-	 * 仮想通貨消費量を設定
+	 * 課金通貨消費量を設定
 	 *
-	 * @param count 仮想通貨消費量
+	 * @param count 課金通貨消費量
 	 */
 	public void setCount(Integer count) {
 		this.count = count;
 	}
 
 	/**
-	 * 仮想通貨消費量を設定
+	 * 課金通貨消費量を設定
 	 *
-	 * @param count 仮想通貨消費量
+	 * @param count 課金通貨消費量
 	 * @return this
 	 */
 	public ConsumeWalletRequest withCount(Integer count) {
 		setCount(count);
-		return this;
-	}
-
-	/**
-	 * 有償仮想通貨のみ消費対象としたい場合に true を指定しますを取得
-	 *
-	 * @return 有償仮想通貨のみ消費対象としたい場合に true を指定します
-	 */
-	public Boolean getPaidOnly() {
-		return paidOnly;
-	}
-
-	/**
-	 * 有償仮想通貨のみ消費対象としたい場合に true を指定しますを設定
-	 *
-	 * @param paidOnly 有償仮想通貨のみ消費対象としたい場合に true を指定します
-	 */
-	public void setPaidOnly(Boolean paidOnly) {
-		this.paidOnly = paidOnly;
-	}
-
-	/**
-	 * 有償仮想通貨のみ消費対象としたい場合に true を指定しますを設定
-	 *
-	 * @param paidOnly 有償仮想通貨のみ消費対象としたい場合に true を指定します
-	 * @return this
-	 */
-	public ConsumeWalletRequest withPaidOnly(Boolean paidOnly) {
-		setPaidOnly(paidOnly);
 		return this;
 	}
 
@@ -189,6 +160,35 @@ public class ConsumeWalletRequest extends Gs2UserRequest<ConsumeWalletRequest> {
 	 */
 	public ConsumeWalletRequest withUse(Integer use) {
 		setUse(use);
+		return this;
+	}
+
+	/**
+	 * 有償課金通貨のみ消費対象としたい場合に true を指定しますを取得
+	 *
+	 * @return 有償課金通貨のみ消費対象としたい場合に true を指定します
+	 */
+	public Boolean getPaidOnly() {
+		return paidOnly;
+	}
+
+	/**
+	 * 有償課金通貨のみ消費対象としたい場合に true を指定しますを設定
+	 *
+	 * @param paidOnly 有償課金通貨のみ消費対象としたい場合に true を指定します
+	 */
+	public void setPaidOnly(Boolean paidOnly) {
+		this.paidOnly = paidOnly;
+	}
+
+	/**
+	 * 有償課金通貨のみ消費対象としたい場合に true を指定しますを設定
+	 *
+	 * @param paidOnly 有償課金通貨のみ消費対象としたい場合に true を指定します
+	 * @return this
+	 */
+	public ConsumeWalletRequest withPaidOnly(Boolean paidOnly) {
+		setPaidOnly(paidOnly);
 		return this;
 	}
 

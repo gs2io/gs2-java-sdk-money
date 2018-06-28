@@ -31,71 +31,42 @@ public class CreateItemRequest extends Gs2BasicRequest<CreateItemRequest> {
 		public static final String FUNCTION = "CreateItem";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
-
-	/** 付与する仮想通貨の数 */
-	private Integer count;
 
 	/** 商品名 */
 	private String name;
 
+	/** 付与する課金通貨の数 */
+	private Integer count;
+
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
 	public CreateItemRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
-		return this;
-	}
-
-	/**
-	 * 付与する仮想通貨の数を取得
-	 *
-	 * @return 付与する仮想通貨の数
-	 */
-	public Integer getCount() {
-		return count;
-	}
-
-	/**
-	 * 付与する仮想通貨の数を設定
-	 *
-	 * @param count 付与する仮想通貨の数
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	/**
-	 * 付与する仮想通貨の数を設定
-	 *
-	 * @param count 付与する仮想通貨の数
-	 * @return this
-	 */
-	public CreateItemRequest withCount(Integer count) {
-		setCount(count);
 		return this;
 	}
 
@@ -125,6 +96,35 @@ public class CreateItemRequest extends Gs2BasicRequest<CreateItemRequest> {
 	 */
 	public CreateItemRequest withName(String name) {
 		setName(name);
+		return this;
+	}
+
+	/**
+	 * 付与する課金通貨の数を取得
+	 *
+	 * @return 付与する課金通貨の数
+	 */
+	public Integer getCount() {
+		return count;
+	}
+
+	/**
+	 * 付与する課金通貨の数を設定
+	 *
+	 * @param count 付与する課金通貨の数
+	 */
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	/**
+	 * 付与する課金通貨の数を設定
+	 *
+	 * @param count 付与する課金通貨の数
+	 * @return this
+	 */
+	public CreateItemRequest withCount(Integer count) {
+		setCount(count);
 		return this;
 	}
 

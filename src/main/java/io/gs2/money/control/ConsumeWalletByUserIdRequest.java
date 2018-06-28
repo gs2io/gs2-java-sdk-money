@@ -19,16 +19,16 @@ package io.gs2.money.control;
 import org.json.JSONObject;
 import java.util.List;
 import io.gs2.money.Gs2Money;
-import io.gs2.control.Gs2UserRequest;
+import io.gs2.control.Gs2BasicRequest;
 
 /**
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
+public class ConsumeWalletByUserIdRequest extends Gs2BasicRequest<ConsumeWalletByUserIdRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "ChargeWallet";
+		public static final String FUNCTION = "ConsumeWalletByUserId";
 	}
 
 	/** 取得する課金通貨の名前 */
@@ -37,14 +37,17 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	/** 取得するウォレットのスロット番号 */
 	private Integer slot;
 
-	/** 支払金額 */
-	private Double price;
+	/** ウォレットのユーザID */
+	private String userId;
 
-	/** 課金通貨付与量 */
+	/** 課金通貨消費量 */
 	private Integer count;
 
-	/** トランザクションID */
-	private String transactionId;
+	/** 用途ID */
+	private Integer use;
+
+	/** 有償課金通貨のみ消費対象としたい場合に true を指定します */
+	private Boolean paidOnly;
 
 
 	/**
@@ -71,7 +74,7 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	 * @param moneyName 取得する課金通貨の名前
 	 * @return this
 	 */
-	public ChargeWalletRequest withMoneyName(String moneyName) {
+	public ConsumeWalletByUserIdRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
 		return this;
 	}
@@ -100,95 +103,124 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	 * @param slot 取得するウォレットのスロット番号
 	 * @return this
 	 */
-	public ChargeWalletRequest withSlot(Integer slot) {
+	public ConsumeWalletByUserIdRequest withSlot(Integer slot) {
 		setSlot(slot);
 		return this;
 	}
 
 	/**
-	 * 支払金額を取得
+	 * ウォレットのユーザIDを取得
 	 *
-	 * @return 支払金額
+	 * @return ウォレットのユーザID
 	 */
-	public Double getPrice() {
-		return price;
+	public String getUserId() {
+		return userId;
 	}
 
 	/**
-	 * 支払金額を設定
+	 * ウォレットのユーザIDを設定
 	 *
-	 * @param price 支払金額
+	 * @param userId ウォレットのユーザID
 	 */
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	/**
-	 * 支払金額を設定
+	 * ウォレットのユーザIDを設定
 	 *
-	 * @param price 支払金額
+	 * @param userId ウォレットのユーザID
 	 * @return this
 	 */
-	public ChargeWalletRequest withPrice(Double price) {
-		setPrice(price);
+	public ConsumeWalletByUserIdRequest withUserId(String userId) {
+		setUserId(userId);
 		return this;
 	}
 
 	/**
-	 * 課金通貨付与量を取得
+	 * 課金通貨消費量を取得
 	 *
-	 * @return 課金通貨付与量
+	 * @return 課金通貨消費量
 	 */
 	public Integer getCount() {
 		return count;
 	}
 
 	/**
-	 * 課金通貨付与量を設定
+	 * 課金通貨消費量を設定
 	 *
-	 * @param count 課金通貨付与量
+	 * @param count 課金通貨消費量
 	 */
 	public void setCount(Integer count) {
 		this.count = count;
 	}
 
 	/**
-	 * 課金通貨付与量を設定
+	 * 課金通貨消費量を設定
 	 *
-	 * @param count 課金通貨付与量
+	 * @param count 課金通貨消費量
 	 * @return this
 	 */
-	public ChargeWalletRequest withCount(Integer count) {
+	public ConsumeWalletByUserIdRequest withCount(Integer count) {
 		setCount(count);
 		return this;
 	}
 
 	/**
-	 * トランザクションIDを取得
+	 * 用途IDを取得
 	 *
-	 * @return トランザクションID
+	 * @return 用途ID
 	 */
-	public String getTransactionId() {
-		return transactionId;
+	public Integer getUse() {
+		return use;
 	}
 
 	/**
-	 * トランザクションIDを設定
+	 * 用途IDを設定
 	 *
-	 * @param transactionId トランザクションID
+	 * @param use 用途ID
 	 */
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
+	public void setUse(Integer use) {
+		this.use = use;
 	}
 
 	/**
-	 * トランザクションIDを設定
+	 * 用途IDを設定
 	 *
-	 * @param transactionId トランザクションID
+	 * @param use 用途ID
 	 * @return this
 	 */
-	public ChargeWalletRequest withTransactionId(String transactionId) {
-		setTransactionId(transactionId);
+	public ConsumeWalletByUserIdRequest withUse(Integer use) {
+		setUse(use);
+		return this;
+	}
+
+	/**
+	 * 有償課金通貨のみ消費対象としたい場合に true を指定しますを取得
+	 *
+	 * @return 有償課金通貨のみ消費対象としたい場合に true を指定します
+	 */
+	public Boolean getPaidOnly() {
+		return paidOnly;
+	}
+
+	/**
+	 * 有償課金通貨のみ消費対象としたい場合に true を指定しますを設定
+	 *
+	 * @param paidOnly 有償課金通貨のみ消費対象としたい場合に true を指定します
+	 */
+	public void setPaidOnly(Boolean paidOnly) {
+		this.paidOnly = paidOnly;
+	}
+
+	/**
+	 * 有償課金通貨のみ消費対象としたい場合に true を指定しますを設定
+	 *
+	 * @param paidOnly 有償課金通貨のみ消費対象としたい場合に true を指定します
+	 * @return this
+	 */
+	public ConsumeWalletByUserIdRequest withPaidOnly(Boolean paidOnly) {
+		setPaidOnly(paidOnly);
 		return this;
 	}
 

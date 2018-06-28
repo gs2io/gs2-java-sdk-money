@@ -25,13 +25,13 @@ import io.gs2.control.Gs2BasicRequest;
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<DescribeReceiptByUserAndSlotRequest> {
+public class DescribeReceiptByUserIdAndSlotRequest extends Gs2BasicRequest<DescribeReceiptByUserIdAndSlotRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "DescribeReceiptByUserAndSlot";
+		public static final String FUNCTION = "DescribeReceiptByUserIdAndSlot";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
 
 	/** ユーザID */
@@ -54,30 +54,30 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withMoneyName(String moneyName) {
+	public DescribeReceiptByUserIdAndSlotRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
 		return this;
 	}
@@ -106,7 +106,7 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	 * @param userId ユーザID
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withUserId(String userId) {
+	public DescribeReceiptByUserIdAndSlotRequest withUserId(String userId) {
 		setUserId(userId);
 		return this;
 	}
@@ -135,7 +135,7 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	 * @param slot スロット番号
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withSlot(Integer slot) {
+	public DescribeReceiptByUserIdAndSlotRequest withSlot(Integer slot) {
 		setSlot(slot);
 		return this;
 	}
@@ -164,7 +164,7 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	 * @param begin データの取得開始日時(エポック秒)
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withBegin(Integer begin) {
+	public DescribeReceiptByUserIdAndSlotRequest withBegin(Integer begin) {
 		setBegin(begin);
 		return this;
 	}
@@ -193,7 +193,7 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	 * @param end データの取得終了日時(エポック秒)
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withEnd(Integer end) {
+	public DescribeReceiptByUserIdAndSlotRequest withEnd(Integer end) {
 		setEnd(end);
 		return this;
 	}
@@ -222,7 +222,7 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	 * @param pageToken データの取得を開始する位置を指定するトークン
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withPageToken(String pageToken) {
+	public DescribeReceiptByUserIdAndSlotRequest withPageToken(String pageToken) {
 		setPageToken(pageToken);
 		return this;
 	}
@@ -251,7 +251,7 @@ public class DescribeReceiptByUserAndSlotRequest extends Gs2BasicRequest<Describ
 	 * @param limit データの取得件数
 	 * @return this
 	 */
-	public DescribeReceiptByUserAndSlotRequest withLimit(Integer limit) {
+	public DescribeReceiptByUserIdAndSlotRequest withLimit(Integer limit) {
 		setLimit(limit);
 		return this;
 	}

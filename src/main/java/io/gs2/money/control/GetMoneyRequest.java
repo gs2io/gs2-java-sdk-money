@@ -31,32 +31,32 @@ public class GetMoneyRequest extends Gs2BasicRequest<GetMoneyRequest> {
 		public static final String FUNCTION = "GetMoney";
 	}
 
-	/** 取得する仮想通貨の名前 */
+	/** 取得する課金通貨の名前 */
 	private String moneyName;
 
 
 	/**
-	 * 取得する仮想通貨の名前を取得
+	 * 取得する課金通貨の名前を取得
 	 *
-	 * @return 取得する仮想通貨の名前
+	 * @return 取得する課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 取得する仮想通貨の名前を設定
+	 * 取得する課金通貨の名前を設定
 	 *
-	 * @param moneyName 取得する仮想通貨の名前
+	 * @param moneyName 取得する課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 取得する仮想通貨の名前を設定
+	 * 取得する課金通貨の名前を設定
 	 *
-	 * @param moneyName 取得する仮想通貨の名前
+	 * @param moneyName 取得する課金通貨の名前
 	 * @return this
 	 */
 	public GetMoneyRequest withMoneyName(String moneyName) {

@@ -25,13 +25,13 @@ import io.gs2.control.Gs2BasicRequest;
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class ChargeWalletByUserRequest extends Gs2BasicRequest<ChargeWalletByUserRequest> {
+public class ChargeWalletByUserIdRequest extends Gs2BasicRequest<ChargeWalletByUserIdRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "ChargeWalletByUser";
+		public static final String FUNCTION = "ChargeWalletByUserId";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
 
 	/** ウォレットのスロット番号 */
@@ -40,41 +40,41 @@ public class ChargeWalletByUserRequest extends Gs2BasicRequest<ChargeWalletByUse
 	/** ウォレットのユーザID */
 	private String userId;
 
-	/** 仮想通貨付与量 */
-	private Integer count;
-
 	/** 支払金額 */
 	private Double price;
+
+	/** 課金通貨付与量 */
+	private Integer count;
 
 	/** トランザクションID */
 	private String transactionId;
 
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
-	public ChargeWalletByUserRequest withMoneyName(String moneyName) {
+	public ChargeWalletByUserIdRequest withMoneyName(String moneyName) {
 		setMoneyName(moneyName);
 		return this;
 	}
@@ -103,7 +103,7 @@ public class ChargeWalletByUserRequest extends Gs2BasicRequest<ChargeWalletByUse
 	 * @param slot ウォレットのスロット番号
 	 * @return this
 	 */
-	public ChargeWalletByUserRequest withSlot(Integer slot) {
+	public ChargeWalletByUserIdRequest withSlot(Integer slot) {
 		setSlot(slot);
 		return this;
 	}
@@ -132,37 +132,8 @@ public class ChargeWalletByUserRequest extends Gs2BasicRequest<ChargeWalletByUse
 	 * @param userId ウォレットのユーザID
 	 * @return this
 	 */
-	public ChargeWalletByUserRequest withUserId(String userId) {
+	public ChargeWalletByUserIdRequest withUserId(String userId) {
 		setUserId(userId);
-		return this;
-	}
-
-	/**
-	 * 仮想通貨付与量を取得
-	 *
-	 * @return 仮想通貨付与量
-	 */
-	public Integer getCount() {
-		return count;
-	}
-
-	/**
-	 * 仮想通貨付与量を設定
-	 *
-	 * @param count 仮想通貨付与量
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	/**
-	 * 仮想通貨付与量を設定
-	 *
-	 * @param count 仮想通貨付与量
-	 * @return this
-	 */
-	public ChargeWalletByUserRequest withCount(Integer count) {
-		setCount(count);
 		return this;
 	}
 
@@ -190,8 +161,37 @@ public class ChargeWalletByUserRequest extends Gs2BasicRequest<ChargeWalletByUse
 	 * @param price 支払金額
 	 * @return this
 	 */
-	public ChargeWalletByUserRequest withPrice(Double price) {
+	public ChargeWalletByUserIdRequest withPrice(Double price) {
 		setPrice(price);
+		return this;
+	}
+
+	/**
+	 * 課金通貨付与量を取得
+	 *
+	 * @return 課金通貨付与量
+	 */
+	public Integer getCount() {
+		return count;
+	}
+
+	/**
+	 * 課金通貨付与量を設定
+	 *
+	 * @param count 課金通貨付与量
+	 */
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	/**
+	 * 課金通貨付与量を設定
+	 *
+	 * @param count 課金通貨付与量
+	 * @return this
+	 */
+	public ChargeWalletByUserIdRequest withCount(Integer count) {
+		setCount(count);
 		return this;
 	}
 
@@ -219,7 +219,7 @@ public class ChargeWalletByUserRequest extends Gs2BasicRequest<ChargeWalletByUse
 	 * @param transactionId トランザクションID
 	 * @return this
 	 */
-	public ChargeWalletByUserRequest withTransactionId(String transactionId) {
+	public ChargeWalletByUserIdRequest withTransactionId(String transactionId) {
 		setTransactionId(transactionId);
 		return this;
 	}

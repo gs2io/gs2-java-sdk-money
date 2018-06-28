@@ -31,7 +31,7 @@ public class DescribeItemRequest extends Gs2BasicRequest<DescribeItemRequest> {
 		public static final String FUNCTION = "DescribeItem";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
 
 	/** データの取得を開始する位置を指定するトークン */
@@ -42,27 +42,27 @@ public class DescribeItemRequest extends Gs2BasicRequest<DescribeItemRequest> {
 
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
 	public DescribeItemRequest withMoneyName(String moneyName) {

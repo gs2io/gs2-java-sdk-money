@@ -25,28 +25,7 @@ import io.gs2.money.model.*;
  * @author Game Server Services, Inc.
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ChargeWalletByUserResult {
+public class VerifyByStampTaskResult {
 
-	/** ウォレット */
-	private Summary item;
-
-
-	/**
-	 * ウォレットを取得
-	 *
-	 * @return ウォレット
-	 */
-	public Summary getItem() {
-		return item;
-	}
-
-	/**
-	 * ウォレットを設定
-	 *
-	 * @param item ウォレット
-	 */
-	public void setItem(Summary item) {
-		this.item = item;
-	}
 
 }

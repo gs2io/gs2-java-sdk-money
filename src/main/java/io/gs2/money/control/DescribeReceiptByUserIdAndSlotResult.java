@@ -25,30 +25,30 @@ import io.gs2.money.model.*;
  * @author Game Server Services, Inc.
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class DescribePlatformedItemResult {
+public class DescribeReceiptByUserIdAndSlotResult {
 
-	/** プラットフォーム個別商品 */
-	private List<PlatformedItem> items;
+	/** レシート */
+	private List<Receipt> items;
 
 	/** 次のページを読み込むためのトークン */
 	private String nextPageToken;
 
 
 	/**
-	 * プラットフォーム個別商品を取得
+	 * レシートを取得
 	 *
-	 * @return プラットフォーム個別商品
+	 * @return レシート
 	 */
-	public List<PlatformedItem> getItems() {
+	public List<Receipt> getItems() {
 		return items;
 	}
 
 	/**
-	 * プラットフォーム個別商品を設定
+	 * レシートを設定
 	 *
-	 * @param items プラットフォーム個別商品
+	 * @param items レシート
 	 */
-	public void setItems(List<PlatformedItem> items) {
+	public void setItems(List<Receipt> items) {
 		this.items = items;
 	}
 

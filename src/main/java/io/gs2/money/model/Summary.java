@@ -30,24 +30,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Summary implements Serializable {
 
+	/** ユーザID */
+	private String userId;
+
 	/** スロット番号 */
 	private Integer slot;
+
+	/** 有償課金通貨所持量 */
+	private Integer paid;
+
+	/** 無償課金通貨所持量 */
+	private Integer free;
 
 	/** 作成日時(エポック秒) */
 	private Integer createAt;
 
-	/** 有償仮想通貨所持量 */
-	private Integer paid;
-
 	/** 最終更新日時(エポック秒) */
 	private Integer updateAt;
 
-	/** ユーザID */
-	private String userId;
 
-	/** 無償仮想通貨所持量 */
-	private Integer free;
+	/**
+	 * ユーザIDを取得
+	 *
+	 * @return ユーザID
+	 */
+	public String getUserId() {
+		return userId;
+	}
 
+	/**
+	 * ユーザIDを設定
+	 *
+	 * @param userId ユーザID
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * スロット番号を取得
@@ -65,6 +83,42 @@ public class Summary implements Serializable {
 	 */
 	public void setSlot(Integer slot) {
 		this.slot = slot;
+	}
+
+	/**
+	 * 有償課金通貨所持量を取得
+	 *
+	 * @return 有償課金通貨所持量
+	 */
+	public Integer getPaid() {
+		return paid;
+	}
+
+	/**
+	 * 有償課金通貨所持量を設定
+	 *
+	 * @param paid 有償課金通貨所持量
+	 */
+	public void setPaid(Integer paid) {
+		this.paid = paid;
+	}
+
+	/**
+	 * 無償課金通貨所持量を取得
+	 *
+	 * @return 無償課金通貨所持量
+	 */
+	public Integer getFree() {
+		return free;
+	}
+
+	/**
+	 * 無償課金通貨所持量を設定
+	 *
+	 * @param free 無償課金通貨所持量
+	 */
+	public void setFree(Integer free) {
+		this.free = free;
 	}
 
 	/**
@@ -86,24 +140,6 @@ public class Summary implements Serializable {
 	}
 
 	/**
-	 * 有償仮想通貨所持量を取得
-	 *
-	 * @return 有償仮想通貨所持量
-	 */
-	public Integer getPaid() {
-		return paid;
-	}
-
-	/**
-	 * 有償仮想通貨所持量を設定
-	 *
-	 * @param paid 有償仮想通貨所持量
-	 */
-	public void setPaid(Integer paid) {
-		this.paid = paid;
-	}
-
-	/**
 	 * 最終更新日時(エポック秒)を取得
 	 *
 	 * @return 最終更新日時(エポック秒)
@@ -119,42 +155,6 @@ public class Summary implements Serializable {
 	 */
 	public void setUpdateAt(Integer updateAt) {
 		this.updateAt = updateAt;
-	}
-
-	/**
-	 * ユーザIDを取得
-	 *
-	 * @return ユーザID
-	 */
-	public String getUserId() {
-		return userId;
-	}
-
-	/**
-	 * ユーザIDを設定
-	 *
-	 * @param userId ユーザID
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * 無償仮想通貨所持量を取得
-	 *
-	 * @return 無償仮想通貨所持量
-	 */
-	public Integer getFree() {
-		return free;
-	}
-
-	/**
-	 * 無償仮想通貨所持量を設定
-	 *
-	 * @param free 無償仮想通貨所持量
-	 */
-	public void setFree(Integer free) {
-		this.free = free;
 	}
 
 }

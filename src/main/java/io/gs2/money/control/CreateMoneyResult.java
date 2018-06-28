@@ -27,23 +27,23 @@ import io.gs2.money.model.*;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class CreateMoneyResult {
 
-	/** 仮想通貨 */
+	/** 課金通貨 */
 	private Money item;
 
 
 	/**
-	 * 仮想通貨を取得
+	 * 課金通貨を取得
 	 *
-	 * @return 仮想通貨
+	 * @return 課金通貨
 	 */
 	public Money getItem() {
 		return item;
 	}
 
 	/**
-	 * 仮想通貨を設定
+	 * 課金通貨を設定
 	 *
-	 * @param item 仮想通貨
+	 * @param item 課金通貨
 	 */
 	public void setItem(Money item) {
 		this.item = item;

@@ -30,92 +30,56 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Item implements Serializable {
 
-	/** 商品ID */
+	/** 商品GRN */
 	private String itemId;
 
-	/** 付与する仮想通貨の数 */
-	private Integer count;
-
-	/** 作成日時(エポック秒) */
-	private Integer createAt;
-
-	/** 仮想通貨ID */
+	/** 課金通貨GRN */
 	private String moneyId;
 
 	/** 商品名 */
 	private String name;
+
+	/** 付与する課金通貨の数 */
+	private Integer count;
+
+	/** 作成日時(エポック秒) */
+	private Integer createAt;
 
 	/** 最終更新日時(エポック秒) */
 	private Integer updateAt;
 
 
 	/**
-	 * 商品IDを取得
+	 * 商品GRNを取得
 	 *
-	 * @return 商品ID
+	 * @return 商品GRN
 	 */
 	public String getItemId() {
 		return itemId;
 	}
 
 	/**
-	 * 商品IDを設定
+	 * 商品GRNを設定
 	 *
-	 * @param itemId 商品ID
+	 * @param itemId 商品GRN
 	 */
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
 	/**
-	 * 付与する仮想通貨の数を取得
+	 * 課金通貨GRNを取得
 	 *
-	 * @return 付与する仮想通貨の数
-	 */
-	public Integer getCount() {
-		return count;
-	}
-
-	/**
-	 * 付与する仮想通貨の数を設定
-	 *
-	 * @param count 付与する仮想通貨の数
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	/**
-	 * 作成日時(エポック秒)を取得
-	 *
-	 * @return 作成日時(エポック秒)
-	 */
-	public Integer getCreateAt() {
-		return createAt;
-	}
-
-	/**
-	 * 作成日時(エポック秒)を設定
-	 *
-	 * @param createAt 作成日時(エポック秒)
-	 */
-	public void setCreateAt(Integer createAt) {
-		this.createAt = createAt;
-	}
-
-	/**
-	 * 仮想通貨IDを取得
-	 *
-	 * @return 仮想通貨ID
+	 * @return 課金通貨GRN
 	 */
 	public String getMoneyId() {
 		return moneyId;
 	}
 
 	/**
-	 * 仮想通貨IDを設定
+	 * 課金通貨GRNを設定
 	 *
-	 * @param moneyId 仮想通貨ID
+	 * @param moneyId 課金通貨GRN
 	 */
 	public void setMoneyId(String moneyId) {
 		this.moneyId = moneyId;
@@ -137,6 +101,42 @@ public class Item implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * 付与する課金通貨の数を取得
+	 *
+	 * @return 付与する課金通貨の数
+	 */
+	public Integer getCount() {
+		return count;
+	}
+
+	/**
+	 * 付与する課金通貨の数を設定
+	 *
+	 * @param count 付与する課金通貨の数
+	 */
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	/**
+	 * 作成日時(エポック秒)を取得
+	 *
+	 * @return 作成日時(エポック秒)
+	 */
+	public Integer getCreateAt() {
+		return createAt;
+	}
+
+	/**
+	 * 作成日時(エポック秒)を設定
+	 *
+	 * @param createAt 作成日時(エポック秒)
+	 */
+	public void setCreateAt(Integer createAt) {
+		this.createAt = createAt;
 	}
 
 	/**

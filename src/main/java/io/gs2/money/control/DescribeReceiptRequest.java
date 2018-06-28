@@ -31,7 +31,7 @@ public class DescribeReceiptRequest extends Gs2BasicRequest<DescribeReceiptReque
 		public static final String FUNCTION = "DescribeReceipt";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
 
 	/** データの取得開始日時(エポック秒) */
@@ -48,27 +48,27 @@ public class DescribeReceiptRequest extends Gs2BasicRequest<DescribeReceiptReque
 
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
 	public DescribeReceiptRequest withMoneyName(String moneyName) {

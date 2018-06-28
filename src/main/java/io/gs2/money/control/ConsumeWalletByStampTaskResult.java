@@ -14,63 +14,39 @@
  * permissions and limitations under the License.
  */
 
-package io.gs2.money.model;
+package io.gs2.money.control;
 
+import org.json.JSONObject;
 import java.util.List;
-import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.gs2.money.model.*;
 
 /**
- * ウォレットの詳細
- *
  * @author Game Server Services, Inc.
- *
  */
-@SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Wallet implements Serializable {
+public class ConsumeWalletByStampTaskResult {
 
-	/** 単価 */
-	private Double price;
-
-	/** 所持数 */
-	private Integer count;
+	/** ウォレット */
+	private Summary item;
 
 
 	/**
-	 * 単価を取得
+	 * ウォレットを取得
 	 *
-	 * @return 単価
+	 * @return ウォレット
 	 */
-	public Double getPrice() {
-		return price;
+	public Summary getItem() {
+		return item;
 	}
 
 	/**
-	 * 単価を設定
+	 * ウォレットを設定
 	 *
-	 * @param price 単価
+	 * @param item ウォレット
 	 */
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	/**
-	 * 所持数を取得
-	 *
-	 * @return 所持数
-	 */
-	public Integer getCount() {
-		return count;
-	}
-
-	/**
-	 * 所持数を設定
-	 *
-	 * @param count 所持数
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setItem(Summary item) {
+		this.item = item;
 	}
 
 }

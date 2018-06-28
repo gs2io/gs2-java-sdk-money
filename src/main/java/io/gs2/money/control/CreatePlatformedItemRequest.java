@@ -31,7 +31,7 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 		public static final String FUNCTION = "CreatePlatformedItem";
 	}
 
-	/** 仮想通貨の名前 */
+	/** 課金通貨の名前 */
 	private String moneyName;
 
 	/** 商品の名前 */
@@ -40,35 +40,35 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	/** 販売プラットフォーム */
 	private String platform;
 
-	/** 販売価格 */
-	private Double price;
-
 	/** アプリ内課金ID */
 	private String name;
 
+	/** 販売価格 */
+	private Double price;
+
 
 	/**
-	 * 仮想通貨の名前を取得
+	 * 課金通貨の名前を取得
 	 *
-	 * @return 仮想通貨の名前
+	 * @return 課金通貨の名前
 	 */
 	public String getMoneyName() {
 		return moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 */
 	public void setMoneyName(String moneyName) {
 		this.moneyName = moneyName;
 	}
 
 	/**
-	 * 仮想通貨の名前を設定
+	 * 課金通貨の名前を設定
 	 *
-	 * @param moneyName 仮想通貨の名前
+	 * @param moneyName 課金通貨の名前
 	 * @return this
 	 */
 	public CreatePlatformedItemRequest withMoneyName(String moneyName) {
@@ -135,35 +135,6 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	}
 
 	/**
-	 * 販売価格を取得
-	 *
-	 * @return 販売価格
-	 */
-	public Double getPrice() {
-		return price;
-	}
-
-	/**
-	 * 販売価格を設定
-	 *
-	 * @param price 販売価格
-	 */
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	/**
-	 * 販売価格を設定
-	 *
-	 * @param price 販売価格
-	 * @return this
-	 */
-	public CreatePlatformedItemRequest withPrice(Double price) {
-		setPrice(price);
-		return this;
-	}
-
-	/**
 	 * アプリ内課金IDを取得
 	 *
 	 * @return アプリ内課金ID
@@ -189,6 +160,35 @@ public class CreatePlatformedItemRequest extends Gs2BasicRequest<CreatePlatforme
 	 */
 	public CreatePlatformedItemRequest withName(String name) {
 		setName(name);
+		return this;
+	}
+
+	/**
+	 * 販売価格を取得
+	 *
+	 * @return 販売価格
+	 */
+	public Double getPrice() {
+		return price;
+	}
+
+	/**
+	 * 販売価格を設定
+	 *
+	 * @param price 販売価格
+	 */
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	/**
+	 * 販売価格を設定
+	 *
+	 * @param price 販売価格
+	 * @return this
+	 */
+	public CreatePlatformedItemRequest withPrice(Double price) {
+		setPrice(price);
 		return this;
 	}
 

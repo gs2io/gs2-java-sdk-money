@@ -25,56 +25,24 @@ import io.gs2.control.Gs2UserRequest;
  * @author Game Server Services, Inc.
  */
 @SuppressWarnings("serial")
-public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
+public class ConsumeWalletByStampTaskRequest extends Gs2UserRequest<ConsumeWalletByStampTaskRequest> {
 
 	public static class Constant extends Gs2Money.Constant {
-		public static final String FUNCTION = "ChargeWallet";
+		public static final String FUNCTION = "ConsumeWalletByStampTask";
 	}
-
-	/** 取得する課金通貨の名前 */
-	private String moneyName;
 
 	/** 取得するウォレットのスロット番号 */
 	private Integer slot;
 
-	/** 支払金額 */
-	private Double price;
+	/** スタンプタスク */
+	private String task;
 
-	/** 課金通貨付与量 */
-	private Integer count;
+	/** スタンプの暗号鍵 */
+	private String keyName;
 
 	/** トランザクションID */
 	private String transactionId;
 
-
-	/**
-	 * 取得する課金通貨の名前を取得
-	 *
-	 * @return 取得する課金通貨の名前
-	 */
-	public String getMoneyName() {
-		return moneyName;
-	}
-
-	/**
-	 * 取得する課金通貨の名前を設定
-	 *
-	 * @param moneyName 取得する課金通貨の名前
-	 */
-	public void setMoneyName(String moneyName) {
-		this.moneyName = moneyName;
-	}
-
-	/**
-	 * 取得する課金通貨の名前を設定
-	 *
-	 * @param moneyName 取得する課金通貨の名前
-	 * @return this
-	 */
-	public ChargeWalletRequest withMoneyName(String moneyName) {
-		setMoneyName(moneyName);
-		return this;
-	}
 
 	/**
 	 * 取得するウォレットのスロット番号を取得
@@ -100,66 +68,66 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	 * @param slot 取得するウォレットのスロット番号
 	 * @return this
 	 */
-	public ChargeWalletRequest withSlot(Integer slot) {
+	public ConsumeWalletByStampTaskRequest withSlot(Integer slot) {
 		setSlot(slot);
 		return this;
 	}
 
 	/**
-	 * 支払金額を取得
+	 * スタンプタスクを取得
 	 *
-	 * @return 支払金額
+	 * @return スタンプタスク
 	 */
-	public Double getPrice() {
-		return price;
+	public String getTask() {
+		return task;
 	}
 
 	/**
-	 * 支払金額を設定
+	 * スタンプタスクを設定
 	 *
-	 * @param price 支払金額
+	 * @param task スタンプタスク
 	 */
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setTask(String task) {
+		this.task = task;
 	}
 
 	/**
-	 * 支払金額を設定
+	 * スタンプタスクを設定
 	 *
-	 * @param price 支払金額
+	 * @param task スタンプタスク
 	 * @return this
 	 */
-	public ChargeWalletRequest withPrice(Double price) {
-		setPrice(price);
+	public ConsumeWalletByStampTaskRequest withTask(String task) {
+		setTask(task);
 		return this;
 	}
 
 	/**
-	 * 課金通貨付与量を取得
+	 * スタンプの暗号鍵を取得
 	 *
-	 * @return 課金通貨付与量
+	 * @return スタンプの暗号鍵
 	 */
-	public Integer getCount() {
-		return count;
+	public String getKeyName() {
+		return keyName;
 	}
 
 	/**
-	 * 課金通貨付与量を設定
+	 * スタンプの暗号鍵を設定
 	 *
-	 * @param count 課金通貨付与量
+	 * @param keyName スタンプの暗号鍵
 	 */
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setKeyName(String keyName) {
+		this.keyName = keyName;
 	}
 
 	/**
-	 * 課金通貨付与量を設定
+	 * スタンプの暗号鍵を設定
 	 *
-	 * @param count 課金通貨付与量
+	 * @param keyName スタンプの暗号鍵
 	 * @return this
 	 */
-	public ChargeWalletRequest withCount(Integer count) {
-		setCount(count);
+	public ConsumeWalletByStampTaskRequest withKeyName(String keyName) {
+		setKeyName(keyName);
 		return this;
 	}
 
@@ -187,7 +155,7 @@ public class ChargeWalletRequest extends Gs2UserRequest<ChargeWalletRequest> {
 	 * @param transactionId トランザクションID
 	 * @return this
 	 */
-	public ChargeWalletRequest withTransactionId(String transactionId) {
+	public ConsumeWalletByStampTaskRequest withTransactionId(String transactionId) {
 		setTransactionId(transactionId);
 		return this;
 	}

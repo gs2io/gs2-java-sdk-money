@@ -27,12 +27,30 @@ import io.gs2.money.model.*;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class DescribeMoneyResult {
 
+	/** 課金通貨 */
+	private List<Money> items;
+
 	/** 次のページを読み込むためのトークン */
 	private String nextPageToken;
 
-	/** 仮想通貨 */
-	private List<Money> items;
 
+	/**
+	 * 課金通貨を取得
+	 *
+	 * @return 課金通貨
+	 */
+	public List<Money> getItems() {
+		return items;
+	}
+
+	/**
+	 * 課金通貨を設定
+	 *
+	 * @param items 課金通貨
+	 */
+	public void setItems(List<Money> items) {
+		this.items = items;
+	}
 
 	/**
 	 * 次のページを読み込むためのトークンを取得
@@ -50,24 +68,6 @@ public class DescribeMoneyResult {
 	 */
 	public void setNextPageToken(String nextPageToken) {
 		this.nextPageToken = nextPageToken;
-	}
-
-	/**
-	 * 仮想通貨を取得
-	 *
-	 * @return 仮想通貨
-	 */
-	public List<Money> getItems() {
-		return items;
-	}
-
-	/**
-	 * 仮想通貨を設定
-	 *
-	 * @param items 仮想通貨
-	 */
-	public void setItems(List<Money> items) {
-		this.items = items;
 	}
 
 }
