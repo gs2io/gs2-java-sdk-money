@@ -18,6 +18,7 @@ package io.gs2.money.control;
 
 import org.json.JSONObject;
 import java.util.List;
+import io.gs2.money.model.*;
 import io.gs2.money.Gs2Money;
 import io.gs2.control.Gs2BasicRequest;
 
@@ -54,6 +55,15 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 
 	/** Google のレシート検証用公開鍵 */
 	private String googleKey;
+
+	/** UnityEditorが出力する偽のレシートで決済できるようにするか */
+	private Boolean enableFakeReceipt;
+
+	/** 偽のレシートをどのプラットフォームと判定するか */
+	private String fakePlatform;
+
+	/** 偽のレシートをどの商品の購入と判定するか */
+	private String fakePurchaseItemName;
 
 	/** ウォレット新規作成時 に実行されるGS2-Script */
 	private String createWalletTriggerScript;
@@ -303,6 +313,93 @@ public class CreateMoneyRequest extends Gs2BasicRequest<CreateMoneyRequest> {
 	 */
 	public CreateMoneyRequest withGoogleKey(String googleKey) {
 		setGoogleKey(googleKey);
+		return this;
+	}
+
+	/**
+	 * UnityEditorが出力する偽のレシートで決済できるようにするかを取得
+	 *
+	 * @return UnityEditorが出力する偽のレシートで決済できるようにするか
+	 */
+	public Boolean getEnableFakeReceipt() {
+		return enableFakeReceipt;
+	}
+
+	/**
+	 * UnityEditorが出力する偽のレシートで決済できるようにするかを設定
+	 *
+	 * @param enableFakeReceipt UnityEditorが出力する偽のレシートで決済できるようにするか
+	 */
+	public void setEnableFakeReceipt(Boolean enableFakeReceipt) {
+		this.enableFakeReceipt = enableFakeReceipt;
+	}
+
+	/**
+	 * UnityEditorが出力する偽のレシートで決済できるようにするかを設定
+	 *
+	 * @param enableFakeReceipt UnityEditorが出力する偽のレシートで決済できるようにするか
+	 * @return this
+	 */
+	public CreateMoneyRequest withEnableFakeReceipt(Boolean enableFakeReceipt) {
+		setEnableFakeReceipt(enableFakeReceipt);
+		return this;
+	}
+
+	/**
+	 * 偽のレシートをどのプラットフォームと判定するかを取得
+	 *
+	 * @return 偽のレシートをどのプラットフォームと判定するか
+	 */
+	public String getFakePlatform() {
+		return fakePlatform;
+	}
+
+	/**
+	 * 偽のレシートをどのプラットフォームと判定するかを設定
+	 *
+	 * @param fakePlatform 偽のレシートをどのプラットフォームと判定するか
+	 */
+	public void setFakePlatform(String fakePlatform) {
+		this.fakePlatform = fakePlatform;
+	}
+
+	/**
+	 * 偽のレシートをどのプラットフォームと判定するかを設定
+	 *
+	 * @param fakePlatform 偽のレシートをどのプラットフォームと判定するか
+	 * @return this
+	 */
+	public CreateMoneyRequest withFakePlatform(String fakePlatform) {
+		setFakePlatform(fakePlatform);
+		return this;
+	}
+
+	/**
+	 * 偽のレシートをどの商品の購入と判定するかを取得
+	 *
+	 * @return 偽のレシートをどの商品の購入と判定するか
+	 */
+	public String getFakePurchaseItemName() {
+		return fakePurchaseItemName;
+	}
+
+	/**
+	 * 偽のレシートをどの商品の購入と判定するかを設定
+	 *
+	 * @param fakePurchaseItemName 偽のレシートをどの商品の購入と判定するか
+	 */
+	public void setFakePurchaseItemName(String fakePurchaseItemName) {
+		this.fakePurchaseItemName = fakePurchaseItemName;
+	}
+
+	/**
+	 * 偽のレシートをどの商品の購入と判定するかを設定
+	 *
+	 * @param fakePurchaseItemName 偽のレシートをどの商品の購入と判定するか
+	 * @return this
+	 */
+	public CreateMoneyRequest withFakePurchaseItemName(String fakePurchaseItemName) {
+		setFakePurchaseItemName(fakePurchaseItemName);
 		return this;
 	}
 
